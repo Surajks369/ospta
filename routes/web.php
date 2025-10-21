@@ -36,6 +36,8 @@ Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('test
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/join', [HomeController::class, 'join'])->name('join');
 Route::post('/join', [HomeController::class, 'joinSubmit'])->name('join.submit');
+Route::get('/offers', [HomeController::class, 'offers'])->name('offers');
+Route::get('/offer/{id}', [HomeController::class, 'offerDetails'])->name('offer.details');
 
 /*
 |--------------------------------------------------------------------------

@@ -39,10 +39,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="category" class="form-label">Category</label>
+                                        <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control @error('category') is-invalid @enderror" 
                                                id="category" name="category" value="{{ old('category', $faq->category) }}" 
-                                               placeholder="e.g., General, Courses, Payment">
+                                               placeholder="e.g., General, Courses, Payment" required>
                                         @error('category')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -50,10 +50,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="order_position" class="form-label">Order Position</label>
-                                        <input type="number" class="form-control @error('order_position') is-invalid @enderror" 
-                                               id="order_position" name="order_position" value="{{ old('order_position', $faq->order_position) }}" min="0">
-                                        @error('order_position')
+                                        <label for="sort_order" class="form-label">Order Position</label>
+                                        <input type="number" class="form-control @error('sort_order') is-invalid @enderror" 
+                                               id="sort_order" name="sort_order" value="{{ old('sort_order', $faq->sort_order) }}" min="0">
+                                        @error('sort_order')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

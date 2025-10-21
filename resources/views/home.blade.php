@@ -87,35 +87,44 @@
                         </div>
                     </div>
                 </div>
-                <div class="class-offer-active">
+                <div class="row">
                     @foreach($courses as $course)
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
                         <!-- Single -->
                         <div class="properties pb-30">
                             <div class="properties__card">
                                 <div class="properties__img">
-                                    <a href="#"><img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}"></a>
+                                    <a href="{{ route('course.details', $course->id) }}">
+                                        @if($course->image)
+                                            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}">
+                                        @else
+                                            <img src="{{ asset('assets/img/gallery/class-img1.png') }}" alt="{{ $course->title }}">
+                                        @endif
+                                    </a>
                                     <div class="img-text">
                                         <span class="open">{{ $course->status ? 'Open' : 'Admission Closed' }}</span>
                                     </div>
                                 </div>
                                 <div class="properties__caption">
-                                    <h3><a href="#">{{ $course->title }}</a></h3>
-                                    <p>{{ $course->short_description }}</p>
+                                    <h3><a href="{{ route('course.details', $course->id) }}">{{ $course->title }}</a></h3>
+                                    <p>{{ Str::limit($course->description, 80) }}</p>
                                 </div>
                                 <div class="properties__footer d-flex justify-content-between align-items-center">
                                     <div class="class-day">
-                                        <span class="color-font4">{{ $course->price }}</span>
-                                        <p>Price</p>
+                                        <span class="color-font4">{{ $course->category->name ?? 'General' }}</span>
+                                        <p>Category</p>
                                     </div>
                                     <div class="class-day">
-                                        <span class="color-font2">{{ $course->discounted_price }}</span>
-                                        <p>Offer Price</p>
-                                    </div>
-                                    <div class="class-day">
-                                        <span class="color-font1">{{ $course->duration }}</span>
+                                        <span class="color-font2">{{ $course->duration ?? 'N/A' }}</span>
                                         <p>Duration</p>
                                     </div>
+                                    <div class="class-day">
+                                        <span class="color-font1">{{ $course->price ? number_format($course->price, 0) : 'Free' }}</span>
+                                        <p>Price</p>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="{{ route('course.details', $course->id) }}" class="border-btn">View More</a>
                                 </div>
                             </div>
                         </div>

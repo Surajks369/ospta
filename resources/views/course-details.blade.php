@@ -118,13 +118,13 @@
                         <div class="enrollment-header text-center">
                             <div class="price-section mb-30">
                                 @if($course->discounted_price && $course->discounted_price < $course->price)
-                                    <span class="original-price">${{ number_format($course->price, 2) }}</span>
-                                    <span class="discounted-price">${{ number_format($course->discounted_price, 2) }}</span>
+                                    <span class="original-price">{{ number_format($course->price, 2) }}</span>
+                                    <span class="discounted-price">{{ number_format($course->discounted_price, 2) }}</span>
                                     <div class="discount-badge">
                                         {{ round((($course->price - $course->discounted_price) / $course->price) * 100) }}% OFF
                                     </div>
                                 @else
-                                    <span class="current-price">${{ $course->price ? number_format($course->price, 2) : 'Free' }}</span>
+                                    <span class="current-price">{{ $course->price ? number_format($course->price, 2) : 'Free' }}</span>
                                 @endif
                             </div>
                             <div class="enrollment-buttons">

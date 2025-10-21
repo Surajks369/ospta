@@ -48,7 +48,7 @@
         <nav id="sidebar" class="bg-dark text-white p-3" style="min-width:220px; min-height:100vh;">
             <div class="sidebar-header mb-4 d-flex align-items-center">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height:40px; width:auto; margin-right:10px;">
-                <span class="fs-5 fw-bold">OSPTA Admin</span>
+                <span class="fs-5 fw-bold">OPSTA Admin</span>
             </div>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2">

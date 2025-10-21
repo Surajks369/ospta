@@ -31,10 +31,10 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-11">
                     <!-- Section Tittle -->
-                    <div class="section-tittle text-center mb-80">
+                    {{--<div class="section-tittle text-center mb-80">
                         <h2>What Our <span>Students Say</span></h2>
                         <p>Real feedback from real students who have transformed their careers through our professional training programs. Read their success stories and experiences.</p>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
             

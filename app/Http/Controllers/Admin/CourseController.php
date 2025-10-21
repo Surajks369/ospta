@@ -43,7 +43,7 @@ class CourseController extends Controller
         $data = $request->except(['image', 'features']);
         $data['slug'] = Str::slug($request->title);
         $data['features'] = $request->features ? array_filter($request->features) : [];
-        $data['status'] = $request->has('status') ? 1 : 0;
+        $data['status'] = (bool)$request->input('status', false);
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('courses', 'public');
@@ -94,7 +94,7 @@ class CourseController extends Controller
             $data['features'] = [];
         }
         
-        $data['status'] = $request->has('status') ? 1 : 0;
+        $data['status'] = (bool)$request->input('status', false);
 
         if ($request->hasFile('image')) {
             // Delete old image

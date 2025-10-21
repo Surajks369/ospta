@@ -34,6 +34,7 @@
                                 <li><a href="{{ url('/') }}">Home</a></li>
                                 <li><a href="{{ url('/about') }}">About</a></li>
                                 <li><a href="{{ url('/courses') }}">Courses</a></li>
+                                <li><a href="{{ url('/offers') }}">Offers</a></li>
                                 <li><a href="{{ url('/gallery') }}">Gallery</a></li>
                                 <li><a href="{{ url('/testimonials') }}">Testimonials</a></li>
                                 <li><a href="{{ url('/join') }}">Join us</a></li>

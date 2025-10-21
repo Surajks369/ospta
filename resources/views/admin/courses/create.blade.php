@@ -144,12 +144,15 @@
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="status" name="status" value="1" 
-                                       {{ old('status', true) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="status">
-                                    Active Status
-                                </label>
+                            <div class="form-floating mb-3">
+                                <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" aria-label="Select Status">
+                                    <option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ old('status') === '0' ? 'selected' : '' }}>Inactive</option>
+                                </select>
+                                <label for="status">Status</label>
+                                @error('status')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         

@@ -27,7 +27,7 @@ class TestimonialController extends Controller
             'designation' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
             'testimonial' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'rating' => 'required|integer|min:1|max:5',
             'status' => 'boolean',
             'sort_order' => 'integer'
@@ -62,7 +62,7 @@ class TestimonialController extends Controller
             'designation' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
             'testimonial' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'rating' => 'required|integer|min:1|max:5',
             'status' => 'boolean',
             'sort_order' => 'integer'

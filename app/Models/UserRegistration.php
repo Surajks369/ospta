@@ -22,7 +22,16 @@ class UserRegistration extends Model
         'qualification',
         'image',
         'notes',
-        'status'
+        'status',
+        // School Details
+        'current_school',
+        'school_grade',
+        'school_board',
+        // Parent Details
+        'parent_name',
+        'parent_phone',
+        'parent_email',
+        'parent_occupation'
     ];
 
     protected $casts = [

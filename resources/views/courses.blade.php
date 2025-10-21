@@ -61,7 +61,7 @@
                                         <p>Duration</p>
                                     </div>
                                     <div class="class-day">
-                                        <span class="color-font1">${{ $course->price ? number_format($course->price, 0) : 'Free' }}</span>
+                                        <span class="color-font1">{{ $course->price ? number_format($course->price, 0) : 'Free' }}</span>
                                         <p>Price</p>
                                     </div>
                                 </div>

@@ -17,37 +17,43 @@
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-lg-12">
                     @if($faqs->count() > 0)
-                        <div class="accordion" id="faqAccordion">
-                            @foreach($faqs as $index => $faq)
-                                <div class="card border-0 shadow-sm mb-3" style="border-radius: 15px; overflow: hidden;">
-                                    <div class="card-header" id="heading{{ $index }}" style="background: linear-gradient(135deg, #ED078B 0%, #423F8D 100%); border: none; padding: 0;">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-link text-white text-left w-100 py-3 px-4 position-relative" 
-                                                    type="button" 
-                                                    data-toggle="collapse" 
-                                                    data-target="#collapse{{ $index }}" 
-                                                    aria-expanded="false" 
-                                                    aria-controls="collapse{{ $index }}"
-                                                    style="text-decoration: none; font-weight: 600; font-size: 16px; border: none; outline: none; box-shadow: none; display: block; width: 100%;">
-                                                <div class="d-flex justify-content-between align-items-center w-100">
-                                                    <span style="color: white !important;">{{ $faq->question }}</span>
-                                                    <i class="fas fa-chevron-down" style="color: white !important; transition: transform 0.3s ease;"></i>
+                        @foreach($faqs as $category => $categoryFaqs)
+                            <div class="mb-5">
+                                <h3 class="mb-4" style="color: #423F8D; font-weight: 600;">{{ $category ?: 'General' }}</h3>
+                                <div class="accordion" id="faqAccordion{{ str_replace(' ', '', $category) }}">
+                                    @foreach($categoryFaqs as $index => $faq)
+                                        <div class="card border-0 shadow-sm mb-3" style="border-radius: 15px; overflow: hidden;">
+                                            <div class="card-header" id="heading{{ $category }}{{ $index }}" style="background: linear-gradient(135deg, #ED078B 0%, #423F8D 100%); border: none; padding: 0;">
+                                                <h5 class="mb-0">
+                                                    <button class="btn btn-link text-white text-left w-100 py-3 px-4 position-relative" 
+                                                            type="button" 
+                                                            data-toggle="collapse" 
+                                                            data-target="#collapse{{ $category }}{{ $index }}" 
+                                                            aria-expanded="false" 
+                                                            aria-controls="collapse{{ $category }}{{ $index }}"
+                                                            style="text-decoration: none; font-weight: 600; font-size: 16px; border: none; outline: none; box-shadow: none; display: block; width: 100%;">
+                                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                                            <span style="color: white !important;">{{ $faq->question }}</span>
+                                                            <i class="fas fa-chevron-down" style="color: white !important; transition: transform 0.3s ease;"></i>
+                                                        </div>
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapse{{ $category }}{{ $index }}" 
+                                                 class="collapse" 
+                                                 aria-labelledby="heading{{ $category }}{{ $index }}" 
+                                                 data-parent="#faqAccordion{{ str_replace(' ', '', $category) }}">
+                                                <div class="card-body py-4 px-4" style="background-color: #f8f9fa; color: #333 !important;">
+                                                    <p class="mb-0" style="line-height: 1.6; font-size: 15px; color: #333 !important;">
+                                                        {!! nl2br(e($faq->answer)) !!}
+                                                    </p>
                                                 </div>
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapse{{ $index }}" 
-                                         class="collapse" 
-                                         aria-labelledby="heading{{ $index }}" 
-                                         data-parent="#faqAccordion">
-                                        <div class="card-body py-4 px-4" style="background-color: #f8f9fa; color: #333 !important;">
-                                            <p class="mb-0" style="line-height: 1.6; font-size: 15px; color: #333 !important;">
-                                                {!! nl2br(e($faq->answer)) !!}
-                                            </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>
+                        @endforeach
                         </div>
                     @else
                         <!-- No FAQs Available -->

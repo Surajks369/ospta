@@ -23,7 +23,12 @@ class HomeController extends Controller
     {
         // Get featured content for home page
         $categories = Category::where('status', true)->orderBy('sort_order')->take(6)->get();
-        $courses = Course::where('status', true)->with('category')->orderBy('sort_order')->take(8)->get();
+        $courses = Course::where('status', true)
+            ->with('category')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
         $gallery = Gallery::where('status', true)->orderBy('sort_order')->take(8)->get();
         $testimonials = Testimonial::where('status', true)->orderBy('sort_order')->take(6)->get();
         $offers = Offer::where('status', true)
@@ -84,11 +89,14 @@ class HomeController extends Controller
             $query->where('level', $request->get('level'));
         }
         
-        // Sorting
+        // Always apply sort_order first
+        $query->orderBy('sort_order', 'asc');
+
+        // Additional sorting
         $sort = $request->get('sort', 'newest');
         switch ($sort) {
             case 'popular':
-                $query->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc');
+                $query->orderBy('created_at', 'desc');
                 break;
             case 'title':
                 $query->orderBy('title', 'asc');
@@ -135,7 +143,11 @@ class HomeController extends Controller
 
     public function faq()
     {
-        $faqs = Faq::where('status', true)->orderBy('sort_order')->get();
+        $faqs = Faq::where('status', true)
+                   ->orderBy('sort_order')
+                   ->orderBy('created_at', 'desc')
+                   ->get()
+                   ->groupBy('category');
         return view('faq', compact('faqs'));
     }
 
@@ -164,6 +176,24 @@ class HomeController extends Controller
             $rules['preferred_time'] = 'nullable|string';
         } elseif ($request->registration_type === 'enrollment') {
             $rules['email'] = 'required|email|unique:user_registrations,email';
+            $rules['date_of_birth'] = 'required|date';
+            $rules['gender'] = 'required|in:male,female,other';
+            $rules['address'] = 'required|string';
+            $rules['city'] = 'required|string|max:100';
+            $rules['state'] = 'required|string|max:100';
+            $rules['pincode'] = 'required|string|max:10';
+            $rules['qualification'] = 'nullable|string|max:255';
+            
+            // School Details
+            $rules['current_school'] = 'required|string|max:255';
+            $rules['school_grade'] = 'required|string|max:50';
+            $rules['school_board'] = 'required|string|max:50';
+            
+            // Parent Details
+            $rules['parent_name'] = 'required|string|max:255';
+            $rules['parent_phone'] = 'required|string|max:20';
+            $rules['parent_email'] = 'required|email';
+            $rules['parent_occupation'] = 'required|string|max:255';
             $rules['date_of_birth'] = 'nullable|date';
             $rules['gender'] = 'nullable|in:male,female,other';
             $rules['address'] = 'nullable|string';
@@ -224,6 +254,28 @@ class HomeController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong. Please try again later.')->withInput();
         }
+    }
+
+    public function offers()
+    {
+        $offers = Offer::where('status', true)
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+            
+        return view('offers', compact('offers'));
+    }
+
+    public function offerDetails($id)
+    {
+        $offer = Offer::where('status', true)
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->findOrFail($id);
+            
+        return view('offer-details', compact('offer'));
     }
 
     public function contactSubmit(Request $request)

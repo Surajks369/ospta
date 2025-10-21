@@ -24,11 +24,14 @@ class FaqController extends Controller
         $request->validate([
             'question' => 'required|string|max:255',
             'answer' => 'required|string',
+            'category' => 'required|string|max:100',
             'status' => 'boolean',
-            'sort_order' => 'integer'
+            'sort_order' => 'required|integer'
         ]);
 
-        Faq::create($request->all());
+        $data = $request->all();
+        $data['status'] = $request->has('status');
+        Faq::create($data);
 
         return redirect()->route('admin.faqs.index')
             ->with('success', 'FAQ created successfully.');
@@ -49,11 +52,14 @@ class FaqController extends Controller
         $request->validate([
             'question' => 'required|string|max:255',
             'answer' => 'required|string',
+            'category' => 'required|string|max:100',
             'status' => 'boolean',
-            'sort_order' => 'integer'
+            'sort_order' => 'required|integer'
         ]);
 
-        $faq->update($request->all());
+        $data = $request->all();
+        $data['status'] = $request->has('status');
+        $faq->update($data);
 
         return redirect()->route('admin.faqs.index')
             ->with('success', 'FAQ updated successfully.');

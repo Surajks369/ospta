@@ -49,7 +49,7 @@
                                         <span class="text-muted">No category</span>
                                     @endif
                                 </td>
-                                <td>{{ $faq->order_position ?? 0 }}</td>
+                                <td>{{ $faq->sort_order ?? 0 }}</td>
                                 <td>
                                     <span class="badge bg-{{ $faq->status ? 'success' : 'danger' }}">
                                         {{ $faq->status ? 'Active' : 'Inactive' }}

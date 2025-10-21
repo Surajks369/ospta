@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>OSPTA</title>
+    <title>OPSTA</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
@@ -73,11 +73,11 @@
                                             <li><a href="/">Home</a></li>
                                             <li><a href="/about">About</a></li>
                                             <li><a href="/courses">Courses</a></li>
+                                            <li><a href="/offers">Offers</a></li>
                                             <li><a href="/gallery">Gallery</a></li>
                                             <li><a href="/testimonials">Testimonials</a></li>
                                             <li><a href="/join">Join us</a></li>
                                             <li><a href="/faq">Faq</a></li>                                     
-
                                             <li><a href="/contact">Contact</a></li>
                                             <li>
                                                 <div class="header-right-btn f-right  ml-15">

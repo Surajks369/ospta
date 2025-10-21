@@ -223,11 +223,90 @@
 
                                 <div class="mb-3">
                                     <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
-                                        Qualification
+                                        Qualification/Grade
                                     </label>
                                     <input type="text" name="qualification" class="form-control" value="{{ old('qualification') }}"
                                            style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
                                            onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                </div>
+
+                                <!-- School Details -->
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
+                                            Current School Name <span style="color: #ED078B;">*</span>
+                                        </label>
+                                        <input type="text" name="current_school" class="form-control" value="{{ old('current_school') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
+                                            Grade/Class <span style="color: #ED078B;">*</span>
+                                        </label>
+                                        <input type="text" name="school_grade" class="form-control" value="{{ old('school_grade') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
+                                            School Board <span style="color: #ED078B;">*</span>
+                                        </label>
+                                        <select name="school_board" class="form-control" required
+                                                style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease; background: white;"
+                                                onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                            <option value="">Select board</option>
+                                            <option value="CBSE" {{ old('school_board') == 'CBSE' ? 'selected' : '' }}>CBSE</option>
+                                            <option value="ICSE" {{ old('school_board') == 'ICSE' ? 'selected' : '' }}>ICSE</option>
+                                            <option value="State Board" {{ old('school_board') == 'State Board' ? 'selected' : '' }}>State Board</option>
+                                            <option value="Other" {{ old('school_board') == 'Other' ? 'selected' : '' }}>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Parent Details -->
+                                <hr class="my-4" style="border-top: 2px solid #e9ecef;">
+                                <h4 style="color: #423F8D; font-weight: 600; margin-bottom: 20px;">Parent/Guardian Details</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
+                                            Parent/Guardian Name <span style="color: #ED078B;">*</span>
+                                        </label>
+                                        <input type="text" name="parent_name" class="form-control" value="{{ old('parent_name') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
+                                            Parent/Guardian Phone <span style="color: #ED078B;">*</span>
+                                        </label>
+                                        <input type="tel" name="parent_phone" class="form-control" value="{{ old('parent_phone') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
+                                            Parent/Guardian Email <span style="color: #ED078B;">*</span>
+                                        </label>
+                                        <input type="email" name="parent_email" class="form-control" value="{{ old('parent_email') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
+                                            Parent/Guardian Occupation <span style="color: #ED078B;">*</span>
+                                        </label>
+                                        <input type="text" name="parent_occupation" class="form-control" value="{{ old('parent_occupation') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
                                 </div>
                             </div>
 
