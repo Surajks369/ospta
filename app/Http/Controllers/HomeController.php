@@ -12,6 +12,7 @@ use App\Models\Testimonial;
 use App\Models\Offer;
 use App\Models\Faq;
 use App\Models\UserRegistration;
+use App\Models\TeamMember;
 use App\Mail\ContactFormMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -38,6 +39,7 @@ class HomeController extends Controller
             ->take(3)
             ->get();
         $faqs = Faq::where('status', true)->orderBy('sort_order')->take(5)->get();
+        $teamMembers = TeamMember::where('status', true)->orderBy('sort_order')->take(4)->get();
 
         // Get the first active offer for countdown section
         $activeOffer = $offers->first();
@@ -49,7 +51,8 @@ class HomeController extends Controller
             'testimonials', 
             'offers', 
             'faqs',
-            'activeOffer'
+            'activeOffer',
+            'teamMembers'
         ));
     }
 
@@ -276,6 +279,22 @@ class HomeController extends Controller
             ->findOrFail($id);
             
         return view('offer-details', compact('offer'));
+    }
+
+    public function team()
+    {
+        $teamMembers = TeamMember::where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+            
+        return view('team', compact('teamMembers'));
+    }
+
+    public function teamMember($id)
+    {
+        $member = TeamMember::where('status', true)->findOrFail($id);
+        return view('team-member', compact('member'));
     }
 
     public function contactSubmit(Request $request)

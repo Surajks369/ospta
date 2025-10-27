@@ -39,8 +39,8 @@
                                 <div class="d-flex justify-content-between flex-wrap align-items-center">
                                     <div class="header-info-left">
                                         <ul>     
-                                            <li><i class="fas fa-map-marker-alt"></i> 57/A, Green Lane, NYC</li>
-                                            <li><i class="fas fa-phone-alt"></i> +10 (78) 367 3692</li>
+                                            <li><i class="fas fa-map-marker-alt"></i> Door No. 16/404D, Saban Golden Village, Puthur, Kottakkal, 676503</li>
+                                            <li><i class="fas fa-phone-alt"></i> 9072 277 460</li>
                                         </ul>
                                     </div>
                                     <div class="header-info-right">
@@ -73,6 +73,7 @@
                                             <li><a href="/">Home</a></li>
                                             <li><a href="/about">About</a></li>
                                             <li><a href="/courses">Courses</a></li>
+                                            <li><a href="/team">Our Team</a></li>
                                             <li><a href="/offers">Offers</a></li>
                                             <li><a href="/gallery">Gallery</a></li>
                                             <li><a href="/testimonials">Testimonials</a></li>

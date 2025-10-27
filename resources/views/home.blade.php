@@ -192,116 +192,43 @@
                 </div>
                 <div class="c-row">
                     <div class="team-active">
+                        @forelse($teamMembers as $member)
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="single-team mb-30 text-center">
                                 <div class="team-img">
-                                    <img src="assets/img/gallery/team1.png" alt="">
+                                    <img src="{{ $member->photo ? Storage::url($member->photo) : asset('assets/img/placeholder.png') }}" 
+                                         alt="{{ $member->name }}">
                                     <div class="team-caption">
                                         <!-- Blog Social -->
                                         <div class="team-social">
                                             <ul>
-                                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                @if(isset($member->social_links['facebook']))
+                                                <li><a href="{{ $member->social_links['facebook'] }}" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                                                @endif
+                                                @if(isset($member->social_links['twitter']))
+                                                <li><a href="{{ $member->social_links['twitter'] }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                @endif
+                                                @if(isset($member->social_links['linkedin']))
+                                                <li><a href="{{ $member->social_links['linkedin'] }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                                @endif
+                                                @if(isset($member->social_links['instagram']))
+                                                <li><a href="{{ $member->social_links['instagram'] }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="team-info">
-                                    <h3><a href="#">Mr. Jacson Clay</a></h3>
-                                    <p>Sports Instructor</p>
+                                    <h3><a href="{{ route('team.member', $member->id) }}">{{ $member->name }}</a></h3>
+                                    <p>{{ $member->job_title }}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="single-team mb-30 text-center">
-                                <div class="team-img">
-                                    <img src="assets/img/gallery/team2.png" alt="">
-                                    <div class="team-caption">
-                                        <!-- Blog Social -->
-                                        <div class="team-social">
-                                            <ul>
-                                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="team-info">
-                                    <h3><a href="#">Mr. Jacson Clay</a></h3>
-                                    <p>Sports Instructor</p>
-                                </div>
-                            </div>
+                        @empty
+                        <div class="col-12 text-center">
+                            <p>No team members available.</p>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="single-team mb-30 text-center">
-                                <div class="team-img">
-                                    <img src="assets/img/gallery/team3.png" alt="">
-                                    <div class="team-caption">
-                                        <!-- Blog Social -->
-                                        <div class="team-social">
-                                            <ul>
-                                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="team-info">
-                                    <h3><a href="#">Buster Hyman</a></h3>
-                                    <p>Sports Instructor</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="single-team mb-30 text-center">
-                                <div class="team-img">
-                                    <img src="assets/img/gallery/team2.png" alt="">
-                                    <div class="team-caption">
-                                        <!-- Blog Social -->
-                                        <div class="team-social">
-                                            <ul>
-                                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="team-info">
-                                    <h3><a href="#">Amilia Kauly</a></h3>
-                                    <p>Sports Instructor</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="single-team mb-30 text-center">
-                                <div class="team-img">
-                                    <img src="assets/img/gallery/team3.png" alt="">
-                                    <div class="team-caption">
-                                        <!-- Blog Social -->
-                                        <div class="team-social">
-                                            <ul>
-                                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="team-info">
-                                    <h3><a href="#">Mr. Jacson Clay</a></h3>
-                                    <p>Sports Instructor</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

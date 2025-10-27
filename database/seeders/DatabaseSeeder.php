@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             OfferSeeder::class,
             DemoBookingSeeder::class,
             CourseEnrollmentSeeder::class,
+            TeamMemberSeeder::class,
         ]);
     }
 }

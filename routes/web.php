@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\DemoBookingController;
 use App\Http\Controllers\Admin\CourseEnrollmentController;
+use App\Http\Controllers\Admin\TeamMemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::get('/join', [HomeController::class, 'join'])->name('join');
 Route::post('/join', [HomeController::class, 'joinSubmit'])->name('join.submit');
 Route::get('/offers', [HomeController::class, 'offers'])->name('offers');
 Route::get('/offer/{id}', [HomeController::class, 'offerDetails'])->name('offer.details');
+Route::get('/team', [HomeController::class, 'team'])->name('team');
+Route::get('/team/{id}', [HomeController::class, 'teamMember'])->name('team.member');
 
 /*
 |--------------------------------------------------------------------------
@@ -83,5 +86,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Course Enrollment Manager
         Route::resource('course-enrollments', CourseEnrollmentController::class);
+
+        // Team Members Manager
+        Route::resource('team', TeamMemberController::class);
     });
 });
