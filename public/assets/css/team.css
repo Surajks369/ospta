@@ -1,0 +1,201 @@
+/* Team Page Hero Section */
+.team-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/team-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    padding: 120px 0;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.team-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.team-hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Team Section Styling */
+.team-section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.team-section-header h5 {
+    color: #FF6B6B;
+    font-weight: 600;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.team-section-header h5::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: #FF6B6B;
+}
+
+.team-section-header h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+    color: #2C3E50;
+}
+
+/* Team Card Styling */
+.team-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.team-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.team-item img {
+    transition: all 0.3s ease;
+    border-radius: 15px 15px 0 0;
+}
+
+.team-item:hover img {
+    transform: scale(1.05);
+}
+
+.team-text {
+    background: #ffffff;
+    padding: 25px 15px !important;
+    border: none !important;
+    border-radius: 0 0 15px 15px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.team-item:hover .team-text {
+    background: #f8f9fa;
+}
+
+.team-text h5 {
+    color: #1d1d1d;
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+    line-height: 1.2;
+}
+
+.team-text p {
+    color: #FF6B6B;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.team-text small.qualification {
+    color: #6c757d;
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+/* Social Media Icons */
+.team-social {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    margin-top: 12px;
+}
+
+.team-item:hover .team-social {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.team-social a {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FF6B6B;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+}
+
+.team-social a:hover {
+    background: #2C3E50;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.team-social a:hover {
+    background: #2C3E50;
+    transform: translateY(-3px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .team-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .team-hero p {
+        font-size: 1rem;
+    }
+    
+    .team-section-header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.team-item {
+    animation: fadeInUp 0.6s ease forwards;
+}

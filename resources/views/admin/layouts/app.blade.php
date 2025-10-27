@@ -101,6 +101,11 @@
                         <i class="fas fa-user-graduate me-2"></i>Course Enrollments
                     </a>
                 </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white" href="{{ route('admin.team.index') }}">
+                        <i class="fas fa-users me-2"></i>Our Teams
+                    </a>
+                </li>
             </ul>
         </nav>
         @endif
