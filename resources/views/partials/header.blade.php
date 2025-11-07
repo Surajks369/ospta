@@ -32,6 +32,7 @@
         <!-- Header Start -->
         <div class="header-area">
             <div class="main-header ">
+                {{--
                 <div class="header-top d-none d-sm-block">
                     <div class="container-fluid">
                         <div class="row">
@@ -56,6 +57,7 @@
                         </div>
                     </div>
                 </div>
+                --}}
                 <div class="header-bottom  header-sticky">
                     <div class="container-fluid">
                         <div class="row align-items-center">

@@ -13,7 +13,11 @@
                             </div>
                             <div class="footer-tittle">
                                 <div class="footer-pera">
-                                    <p>Users and submit their own items. You can create different packages and by connecting with your PayPal or Stripe account charge users for registration.</p>
+                                    <p>
+                                        Door No. 16/404D <br>
+                                        Saban Golden Village <br>
+                                        Puthur, Kottakkal 676503<br>
+                                    </p>
                                 </div>
                             </div>
                             <!-- social -->
