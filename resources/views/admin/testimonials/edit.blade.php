@@ -69,9 +69,11 @@
                             <div class="mb-3">
                                 <label for="image" class="form-label">Image</label>
                                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
+                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 2MB</div>
                                 @if($testimonial->image)
                                     <img src="{{ asset('images/testimonials/' . $testimonial->image) }}" alt="Current Image" class="img-thumbnail mt-2" width="100">
                                 @endif
+                                
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

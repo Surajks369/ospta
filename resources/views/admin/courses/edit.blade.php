@@ -108,6 +108,7 @@
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                        <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 2MB</div>
                         @if($course->image)
                             <img src="{{ asset('storage/' . $course->image) }}" alt="Course Image" class="img-thumbnail mt-2" style="height:80px;">
                         @endif

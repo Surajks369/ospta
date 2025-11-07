@@ -203,6 +203,7 @@
                                                name="photo"
                                                accept="image/*"
                                                onchange="previewImage(this)">
+                                               <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 2MB</div>
                                         @error('photo')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

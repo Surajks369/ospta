@@ -71,6 +71,7 @@
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 2MB</div>
                             </div>
                         </div>
                         <div class="col-md-3">
