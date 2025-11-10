@@ -61,7 +61,7 @@ class Offer extends Model
         }
 
         $discount = 0;
-        if ($this->discount_type === 'percentage') {
+        if ($this->discount_type === 'percent') {
             $discount = ($amount * $this->discount_value) / 100;
         } else {
             $discount = $this->discount_value;
@@ -72,5 +72,16 @@ class Offer extends Model
         }
 
         return min($discount, $amount);
+    }
+
+    // Date accessors for form inputs
+    public function getStartDateFormAttribute()
+    {
+        return $this->start_date ? $this->start_date->format('Y-m-d') : '';
+    }
+
+    public function getEndDateFormAttribute()
+    {
+        return $this->end_date ? $this->end_date->format('Y-m-d') : '';
     }
 }

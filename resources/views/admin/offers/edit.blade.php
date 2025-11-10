@@ -100,7 +100,7 @@
                     <div class="row g-4">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date', $offer->start_date) }}" required placeholder="Start Date">
+                                <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date', $offer->start_date_form) }}" required placeholder="Start Date">
                                 <label for="start_date">Start Date <span class="text-danger">*</span></label>
                                 @error('start_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" value="{{ old('end_date', $offer->end_date) }}" required placeholder="End Date">
+                                <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" value="{{ old('end_date', $offer->end_date_form) }}" required placeholder="End Date">
                                 <label for="end_date">End Date <span class="text-danger">*</span></label>
                                 @error('end_date')
                                     <div class="invalid-feedback">{{ $message }}</div>

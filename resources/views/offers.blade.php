@@ -38,16 +38,19 @@
                                     <h3 class="card-title h4 mb-3" style="color: #423F8D; font-weight: 600;">{{ $offer->title }}</h3>
                                     
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="badge bg-primary me-2" style="font-size: 1rem;">
-                                            @if($offer->discount_type === 'percentage')
-                                                {{ number_format($offer->discount_value, 0) }}% OFF
+                                        <div class="discount-value">
+                                            @if($offer->discount_type === 'percent')
+                                                <span class="amount">{{ number_format($offer->discount_value, 0) }}%</span>
+                                                <span class="label">OFF</span>
                                             @else
-                                                ₹{{ number_format($offer->discount_value, 2) }} OFF
+                                                <span class="amount">₹{{ number_format($offer->discount_value, 2) }}</span>
+                                                <span class="label">OFF</span>
                                             @endif
                                         </div>
                                         @if($offer->offer_code)
-                                            <div class="badge bg-secondary" style="font-size: 0.9rem;">
-                                                Code: {{ $offer->offer_code }}
+                                            <div class="offer-code ms-3">
+                                                <span class="code-label">Use Code:</span>
+                                                <span class="code-value">{{ $offer->offer_code }}</span>
                                             </div>
                                         @endif
                                     </div>
@@ -145,10 +148,57 @@
     .hover-float:hover {
         transform: translateY(-5px);
     }
+    
+    /* New Offer Styles */
+    .discount-value {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .discount-value .amount {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ED078B;
+        line-height: 1;
+    }
+    
+    .discount-value .label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #423F8D;
+        text-transform: uppercase;
+    }
+    
+    .offer-code {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
+    
+    .offer-code .code-label {
+        font-size: 12px;
+        color: #6c757d;
+        text-transform: uppercase;
+    }
+    
+    .offer-code .code-value {
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        font-weight: 600;
+        color: #423F8D;
+        letter-spacing: 1px;
+        padding: 4px 8px;
+        border: 1px dashed #423F8D;
+        border-radius: 4px;
+    }
+    
     .pagination {
         justify-content: center;
         gap: 5px;
     }
+    
     .page-link {
         border-radius: 50%;
         margin: 0 5px;
@@ -160,6 +210,7 @@
         align-items: center;
         justify-content: center;
     }
+    
     .page-item.active .page-link {
         background: linear-gradient(135deg, #423F8D 0%, #ED078B 100%);
     }
