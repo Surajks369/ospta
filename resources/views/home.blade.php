@@ -40,7 +40,7 @@ future generation</span>
                                     <img src="{{ asset('assets/img/icon/about-icon1.svg') }}" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <h3 class="color-font1">MakerSchool</h3>
+                                    <h3 class="color-font1">Maker School</h3>
                                     <p>MakerSchool is a dedicated STEM learning center where students build, create, and explore technology through hands-on projects.</p>
                                 </div>
                             </div>
