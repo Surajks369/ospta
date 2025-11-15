@@ -183,26 +183,9 @@ class HomeController extends Controller
             $rules['preferred_date'] = 'nullable|date|after:today';
             $rules['preferred_time'] = 'nullable|string';
         } elseif ($request->registration_type === 'enrollment') {
-            $rules['email'] = 'required|email|unique:user_registrations,email';
+            // For enrollment we will save all submitted fields into course_enrollments directly
+            $rules['email'] = 'required|email';
             $rules['phone'] = 'required|string|max:20';
-            $rules['date_of_birth'] = 'required|date';
-            $rules['gender'] = 'required|in:male,female,other';
-            $rules['address'] = 'required|string';
-            $rules['city'] = 'required|string|max:100';
-            $rules['state'] = 'required|string|max:100';
-            $rules['pincode'] = 'required|string|max:10';
-            $rules['qualification'] = 'nullable|string|max:255';
-            
-            // School Details
-            $rules['current_school'] = 'required|string|max:255';
-            $rules['school_grade'] = 'required|string|max:50';
-            $rules['school_board'] = 'required|string|max:50';
-            
-            // Parent Details
-            $rules['parent_name'] = 'required|string|max:255';
-            $rules['parent_phone'] = 'required|string|max:20';
-            $rules['parent_email'] = 'required|email';
-            $rules['parent_occupation'] = 'required|string|max:255';
             $rules['date_of_birth'] = 'nullable|date';
             $rules['gender'] = 'nullable|in:male,female,other';
             $rules['address'] = 'nullable|string';
@@ -210,6 +193,17 @@ class HomeController extends Controller
             $rules['state'] = 'nullable|string|max:100';
             $rules['pincode'] = 'nullable|string|max:10';
             $rules['qualification'] = 'nullable|string|max:255';
+
+            // School Details
+            $rules['current_school'] = 'nullable|string|max:255';
+            $rules['school_grade'] = 'nullable|string|max:50';
+            $rules['school_board'] = 'nullable|string|max:50';
+
+            // Parent Details
+            $rules['parent_name'] = 'nullable|string|max:255';
+            $rules['parent_phone'] = 'nullable|string|max:20';
+            $rules['parent_email'] = 'nullable|email';
+            $rules['parent_occupation'] = 'nullable|string|max:255';
         }
 
         $request->validate($rules);
@@ -253,8 +247,10 @@ class HomeController extends Controller
 
                 $successMessage = 'Demo booking submitted successfully! We will contact you soon to confirm your demo session.';
             } else {
-                // Create user registration first
-                $userRegistration = UserRegistration::create([
+                // Create course enrollment directly with submitted user details (no user_registrations row)
+                $enrollmentData = [
+                    'course_id' => $request->course_id,
+                    'user_registration_id' => null,
                     'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
@@ -265,19 +261,25 @@ class HomeController extends Controller
                     'state' => $request->state,
                     'pincode' => $request->pincode,
                     'qualification' => $request->qualification,
-                    'notes' => $request->message,
-                    'status' => 'pending',
-                ]);
-
-                // Create course enrollment
-                CourseEnrollment::create([
-                    'course_id' => $request->course_id,
-                    'user_registration_id' => $userRegistration->id,
+                    // School details
+                    'current_school' => $request->current_school,
+                    'school_grade' => $request->school_grade,
+                    'school_board' => $request->school_board,
+                    // Parent details
+                    'parent_name' => $request->parent_name,
+                    'parent_phone' => $request->parent_phone,
+                    'parent_email' => $request->parent_email,
+                    'parent_occupation' => $request->parent_occupation,
+                    // Enrollment/payment fields
                     'enrollment_date' => now(),
-                    'enrollment_status' => 'pending',
+                    'enrollment_status' => 'active',
+                    'amount_paid' => 0.00,
                     'payment_status' => 'pending',
                     'notes' => $request->message,
-                ]);
+                ];
+
+                $enrollment = CourseEnrollment::create($enrollmentData);
+                Log::info('CourseEnrollment created', ['id' => $enrollment->id, 'data' => $enrollmentData]);
 
                 $successMessage = 'Course enrollment submitted successfully! We will contact you soon with payment details and course information.';
             }

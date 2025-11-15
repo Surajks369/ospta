@@ -12,7 +12,7 @@ class CourseEnrollmentController extends Controller
 {
     public function index()
     {
-        $enrollments = CourseEnrollment::with(['course', 'userRegistration'])
+        $enrollments = CourseEnrollment::with('course')
             ->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.course-enrollments.index', compact('enrollments'));
     }
@@ -49,7 +49,7 @@ class CourseEnrollmentController extends Controller
 
     public function show(CourseEnrollment $courseEnrollment)
     {
-        $courseEnrollment->load(['course', 'userRegistration']);
+        $courseEnrollment->load('course');
         return view('admin.course-enrollments.show', compact('courseEnrollment'));
     }
 

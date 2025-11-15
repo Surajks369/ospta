@@ -44,14 +44,10 @@
                             @forelse($enrollments as $enrollment)
                             <tr>
                                 <td class="ps-4">
-                                    @if($enrollment->userRegistration)
-                                        <div>
-                                            <strong>{{ $enrollment->userRegistration->name }}</strong>
-                                            <br><small class="text-muted">{{ $enrollment->userRegistration->email }}</small>
-                                        </div>
-                                    @else
-                                        <span class="text-muted">User not found</span>
-                                    @endif
+                                    <div>
+                                        <strong>{{ $enrollment->name ?? ($enrollment->userRegistration ? $enrollment->userRegistration->name : 'N/A') }}</strong>
+                                        <br><small class="text-muted">{{ $enrollment->email ?? ($enrollment->userRegistration ? $enrollment->userRegistration->email : 'N/A') }}</small>
+                                    </div>
                                 </td>
                                 <td>
                                     @if($enrollment->course)

@@ -20,8 +20,8 @@
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <h5>User</h5>
-                        <p><strong>{{ $courseEnrollment->userRegistration ? $courseEnrollment->userRegistration->name : 'N/A' }}</strong><br>
-                        <span class="text-muted">{{ $courseEnrollment->userRegistration ? $courseEnrollment->userRegistration->email : 'N/A' }}</span></p>
+                        <p><strong>{{ $courseEnrollment->name ?? ($courseEnrollment->userRegistration ? $courseEnrollment->userRegistration->name : 'N/A') }}</strong><br>
+                        <span class="text-muted">{{ $courseEnrollment->email ?? ($courseEnrollment->userRegistration ? $courseEnrollment->userRegistration->email : 'N/A') }}</span></p>
                         <h5>Course</h5>
                         <p><strong>{{ $courseEnrollment->course ? $courseEnrollment->course->title : 'N/A' }}</strong></p>
                         <h5>Enrollment Date</h5>
