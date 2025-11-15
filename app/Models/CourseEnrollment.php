@@ -85,6 +85,7 @@ class CourseEnrollment extends Model
     {
         $badges = [
             'active' => 'success',
+            'inactive' => 'secondary',
             'completed' => 'primary',
             'cancelled' => 'danger',
             'suspended' => 'warning'

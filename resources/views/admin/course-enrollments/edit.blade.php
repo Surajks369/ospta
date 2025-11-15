@@ -23,14 +23,10 @@
                     <div class="row g-4">
                         <div class="col-md-8">
                             <div class="form-floating mb-3">
-                                <select class="form-select @error('user_registration_id') is-invalid @enderror" id="user_registration_id" name="user_registration_id" required aria-label="Select User">
-                                    <option value="">Select User</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}" {{ $courseEnrollment->user_registration_id == $user->id ? 'selected' : '' }}>{{ $user->name }} ({{ $user->email }})</option>
-                                    @endforeach
-                                </select>
-                                <label for="user_registration_id">User <span class="text-danger">*</span></label>
-                                @error('user_registration_id')
+                                <input type="hidden" name="user_registration_id" value="{{ $courseEnrollment->user_registration_id }}">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $courseEnrollment->name ?? ($courseEnrollment->userRegistration ? $courseEnrollment->userRegistration->name : '')) }}" placeholder="Student Name" required>
+                                <label for="name">Student Name <span class="text-danger">*</span></label>
+                                @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -54,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="enrollment_date" class="form-label">Enrollment Date</label>
-                                <input type="date" class="form-control @error('enrollment_date') is-invalid @enderror" id="enrollment_date" name="enrollment_date" value="{{ old('enrollment_date', $courseEnrollment->enrollment_date) }}">
+                                <input type="date" class="form-control @error('enrollment_date') is-invalid @enderror" id="enrollment_date" name="enrollment_date" value="{{ old('enrollment_date', $courseEnrollment->enrollment_date ? \Carbon\Carbon::parse($courseEnrollment->enrollment_date)->format('Y-m-d') : '') }}">
                                 @error('enrollment_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -121,10 +117,11 @@
                             <div class="mb-3">
                                 <label for="enrollment_status" class="form-label">Enrollment Status</label>
                                 <select class="form-control @error('enrollment_status') is-invalid @enderror" id="enrollment_status" name="enrollment_status">
-                                    <option value="active" {{ $courseEnrollment->enrollment_status == 'active' ? 'selected' : '' }}>Active</option>
-                                    <option value="completed" {{ $courseEnrollment->enrollment_status == 'completed' ? 'selected' : '' }}>Completed</option>
-                                    <option value="cancelled" {{ $courseEnrollment->enrollment_status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                                    <option value="suspended" {{ $courseEnrollment->enrollment_status == 'suspended' ? 'selected' : '' }}>Suspended</option>
+                                    <option value="inactive" {{ old('enrollment_status', $courseEnrollment->enrollment_status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                    <option value="active" {{ old('enrollment_status', $courseEnrollment->enrollment_status) == 'active' ? 'selected' : '' }}>Active</option>
+                                    <option value="completed" {{ old('enrollment_status', $courseEnrollment->enrollment_status) == 'completed' ? 'selected' : '' }}>Completed</option>
+                                    <option value="cancelled" {{ old('enrollment_status', $courseEnrollment->enrollment_status) == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                    <option value="suspended" {{ old('enrollment_status', $courseEnrollment->enrollment_status) == 'suspended' ? 'selected' : '' }}>Suspended</option>
                                 </select>
                                 @error('enrollment_status')
                                     <div class="invalid-feedback">{{ $message }}</div>

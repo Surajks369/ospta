@@ -28,13 +28,14 @@ class CourseEnrollmentController extends Controller
     {
         $request->validate([
             'course_id' => 'required|exists:courses,id',
-            'user_registration_id' => 'required|exists:user_registrations,id',
+            'user_registration_id' => 'nullable|exists:user_registrations,id',
+            'name' => 'required|string|max:255',
             'enrollment_date' => 'required|date',
             'amount_paid' => 'required|numeric|min:0',
             'payment_method' => 'nullable|string',
             'payment_reference' => 'nullable|string',
             'payment_status' => 'required|in:pending,completed,failed,refunded',
-            'enrollment_status' => 'required|in:active,completed,cancelled,suspended',
+            'enrollment_status' => 'required|in:active,completed,cancelled,suspended,inactive',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
             'progress_percentage' => 'nullable|integer|min:0|max:100',
@@ -64,13 +65,14 @@ class CourseEnrollmentController extends Controller
     {
         $request->validate([
             'course_id' => 'required|exists:courses,id',
-            'user_registration_id' => 'required|exists:user_registrations,id',
+            'user_registration_id' => 'nullable|exists:user_registrations,id',
+            'name' => 'required|string|max:255',
             'enrollment_date' => 'required|date',
             'amount_paid' => 'required|numeric|min:0',
             'payment_method' => 'nullable|string',
             'payment_reference' => 'nullable|string',
             'payment_status' => 'required|in:pending,completed,failed,refunded',
-            'enrollment_status' => 'required|in:active,completed,cancelled,suspended',
+            'enrollment_status' => 'required|in:active,completed,cancelled,suspended,inactive',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
             'progress_percentage' => 'nullable|integer|min:0|max:100',

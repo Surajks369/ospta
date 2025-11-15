@@ -271,9 +271,15 @@ class HomeController extends Controller
                     'parent_email' => $request->parent_email,
                     'parent_occupation' => $request->parent_occupation,
                     // Enrollment/payment fields
-                    'enrollment_date' => now(),
-                    'enrollment_status' => 'active',
-                    'amount_paid' => 0.00,
+                        'enrollment_date' => now(),
+                        // New requirement: mark enrollments as inactive on submission
+                        'enrollment_status' => 'inactive',
+                        // Set amount_paid from selected course (prefer discounted_price)
+                        'amount_paid' => (function() use ($request) {
+                            $course = \App\Models\Course::find($request->course_id);
+                            if (!$course) return 0.00;
+                            return $course->discounted_price ? $course->discounted_price : $course->price;
+                        })(),
                     'payment_status' => 'pending',
                     'notes' => $request->message,
                 ];

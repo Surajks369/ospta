@@ -22,14 +22,9 @@
                     <div class="row g-4">
                         <div class="col-md-8">
                             <div class="form-floating mb-3">
-                                <select class="form-select @error('user_registration_id') is-invalid @enderror" id="user_registration_id" name="user_registration_id" required aria-label="Select User">
-                                    <option value="">Select User</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}" {{ old('user_registration_id') == $user->id ? 'selected' : '' }}>{{ $user->name }} ({{ $user->email }})</option>
-                                    @endforeach
-                                </select>
-                                <label for="user_registration_id">User <span class="text-danger">*</span></label>
-                                @error('user_registration_id')
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Student Name" required>
+                                <label for="name">Student Name <span class="text-danger">*</span></label>
+                                @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -120,6 +115,7 @@
                             <div class="mb-3">
                                 <label for="enrollment_status" class="form-label">Enrollment Status</label>
                                 <select class="form-control @error('enrollment_status') is-invalid @enderror" id="enrollment_status" name="enrollment_status">
+                                    <option value="inactive" {{ old('enrollment_status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                     <option value="active" {{ old('enrollment_status') == 'active' ? 'selected' : '' }}>Active</option>
                                     <option value="completed" {{ old('enrollment_status') == 'completed' ? 'selected' : '' }}>Completed</option>
                                     <option value="cancelled" {{ old('enrollment_status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
