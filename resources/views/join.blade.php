@@ -63,7 +63,7 @@
                                 </label>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="registration-type-card" style="border: 2px solid #e9ecef; border-radius: 15px; padding: 20px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 15px;" onclick="selectRegistrationType('demo')">
+                                        <div class="registration-type-card" style="border: 2px solid #e9ecef; border-radius: 15px; padding: 20px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 15px;" onclick="selectRegistrationType('demo', this)">
                                             <input type="radio" name="registration_type" value="demo" id="demo_booking" style="margin-right: 10px;" required>
                                             <label for="demo_booking" style="cursor: pointer; margin: 0;">
                                                 <strong style="color: #423F8D; display: block; font-size: 1.2rem; margin-bottom: 5px;">Demo Booking</strong>
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="registration-type-card" style="border: 2px solid #e9ecef; border-radius: 15px; padding: 20px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 15px;" onclick="selectRegistrationType('enrollment')">
+                                        <div class="registration-type-card" style="border: 2px solid #e9ecef; border-radius: 15px; padding: 20px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 15px;" onclick="selectRegistrationType('enrollment', this)">
                                             <input type="radio" name="registration_type" value="enrollment" id="course_enrollment" style="margin-right: 10px;" required>
                                             <label for="course_enrollment" style="cursor: pointer; margin: 0;">
                                                 <strong style="color: #423F8D; display: block; font-size: 1.2rem; margin-bottom: 5px;">Course Enrollment</strong>
@@ -90,25 +90,6 @@
                                         Full Name <span style="color: #ED078B;">*</span>
                                     </label>
                                     <input type="text" name="name" class="form-control" value="{{ old('name') }}" required
-                                           style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
-                                           onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
-                                        Email Address <span style="color: #ED078B;">*</span>
-                                    </label>
-                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}" required
-                                           style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
-                                           onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
-                                        Phone Number <span style="color: #ED078B;">*</span>
-                                    </label>
-                                    <input type="tel" name="phone" class="form-control" value="{{ old('phone') }}" required
                                            style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
                                            onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
                                 </div>
@@ -133,19 +114,61 @@
                             <div id="demoFields" style="display: none;">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
-                                            Preferred Date
-                                        </label>
-                                        <input type="date" name="preferred_date" class="form-control" value="{{ old('preferred_date') }}"
-                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">School Name <span style="color: #ED078B;">*</span></label>
+                                        <input type="text" name="school_name" class="form-control" value="{{ old('school_name') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">School Address</label>
+                                        <textarea name="school_address" class="form-control" rows="2" style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px;">{{ old('school_address') }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Contact Person <span style="color: #ED078B;">*</span></label>
+                                        <input type="text" name="contact_person" class="form-control" value="{{ old('contact_person') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem;"
                                                onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
-                                            Preferred Time
-                                        </label>
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Designation</label>
+                                        <input type="text" name="contact_designation" class="form-control" value="{{ old('contact_designation') }}"
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Contact Phone <span style="color: #ED078B;">*</span></label>
+                                        <input type="tel" name="contact_phone" class="form-control" value="{{ old('contact_phone') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Contact Email <span style="color: #ED078B;">*</span></label>
+                                        <input type="email" name="contact_email" class="form-control" value="{{ old('contact_email') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Preferred Date</label>
+                                        <input type="date" name="preferred_date" class="form-control" value="{{ old('preferred_date') }}"
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Preferred Time</label>
                                         <select name="preferred_time" class="form-control"
-                                                style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease; background: white;"
+                                                style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; background: white;"
                                                 onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
                                             <option value="">Select time</option>
                                             <option value="09:00 AM" {{ old('preferred_time') == '09:00 AM' ? 'selected' : '' }}>09:00 AM</option>
@@ -161,6 +184,21 @@
 
                             <!-- Course Enrollment Specific Fields -->
                             <div id="enrollmentFields" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Email Address <span style="color: #ED078B;">*</span></label>
+                                        <input type="email" name="email" class="form-control" value="{{ old('email') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Phone Number <span style="color: #ED078B;">*</span></label>
+                                        <input type="tel" name="phone" class="form-control" value="{{ old('phone') }}" required
+                                               style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; transition: border-color 0.3s ease;"
+                                               onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">
@@ -420,29 +458,43 @@
 </style>
 
 <script>
-    function selectRegistrationType(type) {
+    function selectRegistrationType(type, cardElem) {
         // Update radio selection
-        document.getElementById(type === 'demo' ? 'demo_booking' : 'course_enrollment').checked = true;
-        
+        const radioId = type === 'demo' ? 'demo_booking' : 'course_enrollment';
+        const radio = document.getElementById(radioId);
+        if (radio) radio.checked = true;
+
         // Update visual selection
         document.querySelectorAll('.registration-type-card').forEach(card => {
             card.classList.remove('selected');
         });
-        event.currentTarget.classList.add('selected');
-        
-        // Show/hide relevant fields
+        // If cardElem provided, use it; else try to locate the card containing the checked radio
+        let selectedCard = cardElem;
+        if (!selectedCard && radio) {
+            selectedCard = radio.closest('.registration-type-card');
+        }
+        if (selectedCard) selectedCard.classList.add('selected');
+
+        // Show/hide relevant fields and enable/disable inputs so browser validation applies only to visible fields
         const demoFields = document.getElementById('demoFields');
         const enrollmentFields = document.getElementById('enrollmentFields');
         const submitBtn = document.getElementById('submitBtn');
-        
+
+        const demoInputs = demoFields.querySelectorAll('input, select, textarea');
+        const enrollInputs = enrollmentFields.querySelectorAll('input, select, textarea');
+
         if (type === 'demo') {
             demoFields.style.display = 'block';
             enrollmentFields.style.display = 'none';
+            demoInputs.forEach(i => i.disabled = false);
+            enrollInputs.forEach(i => i.disabled = true);
         } else {
             demoFields.style.display = 'none';
             enrollmentFields.style.display = 'block';
+            demoInputs.forEach(i => i.disabled = true);
+            enrollInputs.forEach(i => i.disabled = false);
         }
-        
+
         // Enable submit button
         submitBtn.disabled = false;
         submitBtn.style.background = 'linear-gradient(45deg, #ED078B, #423F8D)';
@@ -453,7 +505,8 @@
     document.querySelectorAll('input[name="registration_type"]').forEach(radio => {
         radio.addEventListener('change', function() {
             if (this.checked) {
-                selectRegistrationType(this.value);
+                const card = this.closest('.registration-type-card');
+                selectRegistrationType(this.value, card);
             }
         });
     });
@@ -465,9 +518,15 @@
             // Find the parent card and trigger selection
             const card = selectedType.closest('.registration-type-card');
             if (card) {
-                selectRegistrationType(selectedType.value);
-                card.classList.add('selected');
+                selectRegistrationType(selectedType.value, card);
             }
+        }
+        else {
+            // Ensure hidden sections inputs are disabled initially to avoid validation blocking
+            const demoFields = document.getElementById('demoFields');
+            const enrollmentFields = document.getElementById('enrollmentFields');
+            demoFields.querySelectorAll('input, select, textarea').forEach(i => i.disabled = true);
+            enrollmentFields.querySelectorAll('input, select, textarea').forEach(i => i.disabled = true);
         }
     });
 </script>

@@ -167,18 +167,24 @@ class HomeController extends Controller
         $rules = [
             'registration_type' => 'required|in:demo,enrollment',
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|string|max:20',
             'course_id' => 'required|exists:courses,id',
             'message' => 'nullable|string',
         ];
 
         // Additional validation based on registration type
         if ($request->registration_type === 'demo') {
+            // demo booking required fields: name, course_id already required in base
+            $rules['school_name'] = 'required|string|max:255';
+            $rules['school_address'] = 'nullable|string';
+            $rules['contact_person'] = 'required|string|max:255';
+            $rules['contact_designation'] = 'nullable|string|max:255';
+            $rules['contact_phone'] = 'required|string|max:20';
+            $rules['contact_email'] = 'required|email';
             $rules['preferred_date'] = 'nullable|date|after:today';
             $rules['preferred_time'] = 'nullable|string';
         } elseif ($request->registration_type === 'enrollment') {
             $rules['email'] = 'required|email|unique:user_registrations,email';
+            $rules['phone'] = 'required|string|max:20';
             $rules['date_of_birth'] = 'required|date';
             $rules['gender'] = 'required|in:male,female,other';
             $rules['address'] = 'required|string';
@@ -209,18 +215,41 @@ class HomeController extends Controller
         $request->validate($rules);
 
         try {
+            // Log request payload for debugging demo/enrollment submissions
+            Log::info('joinSubmit payload', $request->all());
             if ($request->registration_type === 'demo') {
-                // Create demo booking
-                DemoBooking::create([
+                // Convert preferred_time from 12-hour to 24-hour format if provided
+                $preferredTime = null;
+                if ($request->filled('preferred_time')) {
+                    try {
+                        $preferredTime = \Carbon\Carbon::createFromFormat('h:i A', $request->preferred_time)->format('H:i:s');
+                    } catch (\Exception $e) {
+                        // If parsing fails, leave it null
+                        $preferredTime = null;
+                    }
+                }
+
+                // Prepare demo booking data
+                $demoData = [
                     'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
+                    'school_name' => $request->school_name,
+                    'school_address' => $request->school_address,
+                    'contact_person' => $request->contact_person,
+                    'contact_designation' => $request->contact_designation,
+                    // populate email/phone columns from contact fields for admin convenience
+                    'email' => $request->contact_email ?? null,
+                    'phone' => $request->contact_phone ?? null,
+                    'contact_phone' => $request->contact_phone,
+                    'contact_email' => $request->contact_email,
                     'course_id' => $request->course_id,
-                    'preferred_date' => $request->preferred_date,
-                    'preferred_time' => $request->preferred_time,
+                    'preferred_date' => $request->filled('preferred_date') ? $request->preferred_date : null,
+                    'preferred_time' => $preferredTime,
                     'message' => $request->message,
                     'status' => 'pending',
-                ]);
+                ];
+
+                $demo = DemoBooking::create($demoData);
+                Log::info('DemoBooking created', ['id' => $demo->id, 'data' => $demoData]);
 
                 $successMessage = 'Demo booking submitted successfully! We will contact you soon to confirm your demo session.';
             } else {
@@ -255,6 +284,11 @@ class HomeController extends Controller
 
             return redirect()->back()->with('success', $successMessage);
         } catch (\Exception $e) {
+            // Log exception and payload for troubleshooting
+            Log::error('joinSubmit exception: ' . $e->getMessage(), [
+                'payload' => $request->all(),
+                'exception' => $e,
+            ]);
             return redirect()->back()->with('error', 'Something went wrong. Please try again later.')->withInput();
         }
     }
