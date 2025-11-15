@@ -9,9 +9,10 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-7 col-md-10 col-sm-11">
                                 <div class="hero__caption">
-                                    <h1 data-animation="fadeInLeft" data-delay="0.2s">Quality<br> Learning</h1>
-                                    <span data-animation="fadeInLeft" data-delay="0.4s">For Every Child</span>
-                                    <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Explore Classes</a>
+                                    <h1 data-animation="fadeInLeft" data-delay="0.2s">IGNITING<br> CURIOSITY</h1>
+                                    <span data-animation="fadeInLeft" data-delay="0.4s">powering the
+future generation</span>
+                                    <a href="/courses" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Explore Classes</a>
                                 </div>
                             </div>
                         </div>
@@ -26,8 +27,8 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-10 col-lg-10 col-md-10 col-sm-11">
                         <div class="section-tittle text-center mb-70">
-                            <h2>Welcome to our <span>Kindergarten</span></h2>
-                            <p>Our set he for firmament morning sixth subdue today the darkness creeping gathered divide our let god moving today. Moving in fourth air night bring upon lesser subdue fowl male signs.</p>
+                            <h2>Welcome to <span> opsta</span></h2>
+                            <p>We are a future-technology training firm dedicated to preparing learners for the skills of tomorrow. Our programs focus on practical, industry-ready training in emerging technologies, helping students, professionals, and organizations</p>
                         </div>
                     </div>
                 </div>
@@ -39,8 +40,8 @@
                                     <img src="{{ asset('assets/img/icon/about-icon1.svg') }}" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <h3 class="color-font1">Inter School Sports</h3>
-                                    <p>The words you use in your written communica speak volumes.</p>
+                                    <h3 class="color-font1">MakerSchool</h3>
+                                    <p>MakerSchool is a dedicated STEM learning center where students build, create, and explore technology through hands-on projects.</p>
                                 </div>
                             </div>
                             <div class="single-features mb-30">
@@ -48,8 +49,8 @@
                                     <img src="{{ asset('assets/img/icon/about-icon2.svg') }}" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <h3 class="color-font2">Friendly Environment</h3>
-                                    <p>The words you use in your written communica speak volumes.</p>
+                                    <h3 class="color-font2">School Training</h3>
+                                    <p>We provide in-school STEM training programs that bring practical tech learning directly to classrooms.</p>
                                 </div>
                             </div>
                             
@@ -58,8 +59,8 @@
                                     <img src="{{ asset('assets/img/icon/about-icon3.svg') }}" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <h3 class="color-font3">Multimedia Class</h3>
-                                    <p>The words you use in your written communica speak volumes.</p>
+                                    <h3 class="color-font3">Opsta Professionals</h3>
+                                    <p>Opsta Professionals delivers specialized training for teachers and working professionals to upgrade their skills in modern technology.</p>
                                 </div>
                             </div>
                             
