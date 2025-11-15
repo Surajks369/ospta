@@ -122,22 +122,21 @@
                 <form action="{{ route('admin.course-enrollments.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
-                    <!-- Student Information -->
+                    <!-- Basic Information -->
                     <div class="form-section">
                         <div class="section-title">
-                            <i class="fas fa-user-circle"></i>Student Information
+                            <i class="fas fa-user-circle"></i>Basic Information
                         </div>
                         <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Student Name" required>
-                                    <label for="name">Student Name <span class="text-danger">*</span></label>
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                            <div class="col-md-8">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Student Name" required>
+                                <label for="name">Student Name <span class="text-danger">*</span></label>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-floating mb-3">
                                     <select class="form-select @error('course_id') is-invalid @enderror" id="course_id" name="course_id" required aria-label="Select Course">
                                         <option value="">Select Course</option>
@@ -147,194 +146,6 @@
                                     </select>
                                     <label for="course_id">Course <span class="text-danger">*</span></label>
                                     @error('course_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="email" class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="student@example.com">
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label"><i class="fas fa-phone me-2"></i>Phone Number</label>
-                                    <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" placeholder="+1234567890">
-                                    @error('phone')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="date_of_birth" class="form-label"><i class="fas fa-birthday-cake me-2"></i>Date of Birth</label>
-                                    <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
-                                    @error('date_of_birth')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="gender" class="form-label"><i class="fas fa-venus-mars me-2"></i>Gender</label>
-                                    <select class="form-control @error('gender') is-invalid @enderror" id="gender" name="gender">
-                                        <option value="">Select Gender</option>
-                                        <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                        <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                                        <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
-                                    </select>
-                                    @error('gender')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="qualification" class="form-label"><i class="fas fa-graduation-cap me-2"></i>Qualification</label>
-                                    <input type="text" class="form-control @error('qualification') is-invalid @enderror" id="qualification" name="qualification" value="{{ old('qualification') }}" placeholder="e.g., High School, Bachelor's">
-                                    @error('qualification')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Address Information -->
-                    <div class="form-section">
-                        <div class="section-title">
-                            <i class="fas fa-map-marker-alt"></i>Address Information
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="address" class="form-label"><i class="fas fa-home me-2"></i>Address</label>
-                                    <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="2" placeholder="Street address">{{ old('address') }}</textarea>
-                                    @error('address')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="city" class="form-label"><i class="fas fa-city me-2"></i>City</label>
-                                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" placeholder="City">
-                                    @error('city')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="state" class="form-label"><i class="fas fa-map me-2"></i>State</label>
-                                    <input type="text" class="form-control @error('state') is-invalid @enderror" id="state" name="state" value="{{ old('state') }}" placeholder="State">
-                                    @error('state')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="pincode" class="form-label"><i class="fas fa-mail-bulk me-2"></i>Pincode</label>
-                                    <input type="text" class="form-control @error('pincode') is-invalid @enderror" id="pincode" name="pincode" value="{{ old('pincode') }}" placeholder="Pincode">
-                                    @error('pincode')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- School Details -->
-                    <div class="form-section">
-                        <div class="section-title">
-                            <i class="fas fa-school"></i>School Details
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="current_school" class="form-label"><i class="fas fa-building me-2"></i>Current School Name</label>
-                                    <input type="text" class="form-control @error('current_school') is-invalid @enderror" id="current_school" name="current_school" value="{{ old('current_school') }}" placeholder="School Name">
-                                    @error('current_school')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="school_grade" class="form-label"><i class="fas fa-layer-group me-2"></i>Grade/Class</label>
-                                    <input type="text" class="form-control @error('school_grade') is-invalid @enderror" id="school_grade" name="school_grade" value="{{ old('school_grade') }}" placeholder="e.g., Grade 10">
-                                    @error('school_grade')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="school_board" class="form-label"><i class="fas fa-book-reader me-2"></i>School Board</label>
-                                    <input type="text" class="form-control @error('school_board') is-invalid @enderror" id="school_board" name="school_board" value="{{ old('school_board') }}" placeholder="e.g., CBSE, State Board">
-                                    @error('school_board')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Parent/Guardian Details -->
-                    <div class="form-section">
-                        <div class="section-title">
-                            <i class="fas fa-users"></i>Parent/Guardian Details
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="parent_name" class="form-label"><i class="fas fa-user-tie me-2"></i>Parent Name</label>
-                                    <input type="text" class="form-control @error('parent_name') is-invalid @enderror" id="parent_name" name="parent_name" value="{{ old('parent_name') }}" placeholder="Parent/Guardian Name">
-                                    @error('parent_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="parent_phone" class="form-label"><i class="fas fa-phone-alt me-2"></i>Parent Phone</label>
-                                    <input type="text" class="form-control @error('parent_phone') is-invalid @enderror" id="parent_phone" name="parent_phone" value="{{ old('parent_phone') }}" placeholder="+1234567890">
-                                    @error('parent_phone')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="parent_email" class="form-label"><i class="fas fa-envelope me-2"></i>Parent Email</label>
-                                    <input type="email" class="form-control @error('parent_email') is-invalid @enderror" id="parent_email" name="parent_email" value="{{ old('parent_email') }}" placeholder="parent@example.com">
-                                    @error('parent_email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="parent_occupation" class="form-label"><i class="fas fa-briefcase me-2"></i>Parent Occupation</label>
-                                    <input type="text" class="form-control @error('parent_occupation') is-invalid @enderror" id="parent_occupation" name="parent_occupation" value="{{ old('parent_occupation') }}" placeholder="Occupation">
-                                    @error('parent_occupation')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
