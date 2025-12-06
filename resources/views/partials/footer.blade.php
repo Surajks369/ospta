@@ -41,7 +41,7 @@
                                 <li><a href="{{ url('/offers') }}">Offers</a></li>
                                 <li><a href="{{ url('/gallery') }}">Gallery</a></li>
                                 <li><a href="{{ url('/testimonials') }}">Testimonials</a></li>
-                                <li><a href="{{ url('/join') }}">Join us</a></li>
+                                <li><a href="{{ url('/join') }}">Enroll</a></li>
                                 <li><a href="{{ url('/faq') }}">Faq</a></li>
                                 <li><a href="{{ url('/contact') }}">Contact</a></li>
                             </ul>

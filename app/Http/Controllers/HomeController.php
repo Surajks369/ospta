@@ -359,8 +359,17 @@ class HomeController extends Controller
                 'message' => $request->message,
             ];
 
-            // Send email to the specified email address
-            Mail::to('surajks123@gmail.com')->send(new ContactFormMail($contactData));
+            // Resolve admin email from environment (use test address as default)
+            $adminEmail = env('ADMIN_EMAIL', 'surajks123@gmail.com');
+
+            // Prepare mailable and set From to the app mail from address (keeps reply-to as sender)
+            $mailable = new ContactFormMail($contactData);
+            $fromAddress = config('mail.from.address', 'no-reply@ospta.com');
+            $fromName = config('mail.from.name', 'OSPTA');
+            $mailable->from($fromAddress, $fromName);
+
+            // Send to admin (test) address
+            Mail::to($adminEmail)->send($mailable);
 
             return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
         } catch (\Exception $e) {
