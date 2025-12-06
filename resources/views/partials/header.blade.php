@@ -78,12 +78,11 @@
                                             <li><a href="/offers">Offers</a></li>
                                             <li><a href="/gallery">Gallery</a></li>
                                             <li><a href="/testimonials">Testimonials</a></li>
-                                            <li><a href="/join">Join us</a></li>
                                             <li><a href="/faq">Faq</a></li>                                     
                                             <li><a href="/contact">Contact</a></li>
                                             <li>
                                                 <div class="header-right-btn f-right  ml-15">
-                                                    <a onclick="enrollCourse()" class="header-btn">Enroll Now</a>
+                                                    <a href="/join" class="header-btn">Enroll Now</a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -101,9 +100,3 @@
         </div>
         <!-- Header End -->
     </header>
-<script>
-function enrollCourse() {
-    alert('Enrollment functionality will be implemented soon!');
-}
-
-</script>
