@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
 
 class ContactFormMail extends Mailable
@@ -35,10 +36,7 @@ class ContactFormMail extends Mailable
         return new Envelope(
             subject: 'New Contact Form Submission - ' . $this->contactData['subject'],
             replyTo: [
-                [
-                    'address' => $this->contactData['email'],
-                    'name' => $this->contactData['name'],
-                ],
+                new Address($this->contactData['email'], $this->contactData['name']),
             ],
         );
     }
