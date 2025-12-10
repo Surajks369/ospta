@@ -54,7 +54,6 @@ class CourseEnrollmentController extends Controller
             'enrollment_status' => 'required|in:active,completed,cancelled,suspended,inactive',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
-            'progress_percentage' => 'nullable|integer|min:0|max:100',
             'notes' => 'nullable|string'
         ]);
 
@@ -107,7 +106,6 @@ class CourseEnrollmentController extends Controller
             'enrollment_status' => 'required|in:active,completed,cancelled,suspended,inactive',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
-            'progress_percentage' => 'nullable|integer|min:0|max:100',
             'notes' => 'nullable|string'
         ]);
 

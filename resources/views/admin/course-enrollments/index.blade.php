@@ -224,7 +224,6 @@
                                 <th>Enrollment Date</th>
                                 <th>Amount</th>
                                 <th>Status</th>
-                                <th>Progress</th>
                                 <th class="pe-4 text-center">Actions</th>
                             </tr>
                         </thead>
@@ -256,7 +255,7 @@
                                 </td>
                                 <td>
                                     @if($enrollment->amount_paid)
-                                        <span class="amount-paid">${{ number_format($enrollment->amount_paid, 2) }}</span>
+                                        <span class="amount-paid">&#8377;{{ number_format($enrollment->amount_paid, 2) }}</span>
                                     @else
                                         <span class="text-muted">Free</span>
                                     @endif
@@ -265,17 +264,6 @@
                                     <span class="status-badge-custom bg-{{ $enrollment->enrollment_status_badge }}">
                                         {{ ucfirst($enrollment->enrollment_status) }}
                                     </span>
-                                </td>
-                                <td>
-                                    @if($enrollment->progress_percentage !== null)
-                                        <div class="progress-bar-wrapper">
-                                            <div class="progress-bar-custom" style="width: {{ $enrollment->progress_percentage ?? 0 }}%">
-                                                {{ $enrollment->progress_percentage ?? 0 }}%
-                                            </div>
-                                        </div>
-                                    @else
-                                        <span class="text-muted">N/A</span>
-                                    @endif
                                 </td>
                                 <td class="pe-4">
                                     <div class="action-buttons justify-content-center">
@@ -297,7 +285,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7">
+                                <td colspan="6">
                                     <div class="empty-state">
                                         <i class="fas fa-inbox"></i>
                                         <h5>No enrollments found</h5>

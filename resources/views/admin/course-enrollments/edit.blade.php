@@ -241,7 +241,45 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="state" class="form-label"><i class="fas fa-map me-2"></i>State</label>
-                                    <input type="text" class="form-control @error('state') is-invalid @enderror" id="state" name="state" value="{{ old('state', $courseEnrollment->state) }}" placeholder="State">
+                                    <select class="form-control @error('state') is-invalid @enderror" id="state" name="state">
+                                        <option value="">Select State</option>
+                                        <option value="Andhra Pradesh" {{ old('state', $courseEnrollment->state) == 'Andhra Pradesh' ? 'selected' : '' }}>Andhra Pradesh</option>
+                                        <option value="Arunachal Pradesh" {{ old('state', $courseEnrollment->state) == 'Arunachal Pradesh' ? 'selected' : '' }}>Arunachal Pradesh</option>
+                                        <option value="Assam" {{ old('state', $courseEnrollment->state) == 'Assam' ? 'selected' : '' }}>Assam</option>
+                                        <option value="Bihar" {{ old('state', $courseEnrollment->state) == 'Bihar' ? 'selected' : '' }}>Bihar</option>
+                                        <option value="Chhattisgarh" {{ old('state', $courseEnrollment->state) == 'Chhattisgarh' ? 'selected' : '' }}>Chhattisgarh</option>
+                                        <option value="Goa" {{ old('state', $courseEnrollment->state) == 'Goa' ? 'selected' : '' }}>Goa</option>
+                                        <option value="Gujarat" {{ old('state', $courseEnrollment->state) == 'Gujarat' ? 'selected' : '' }}>Gujarat</option>
+                                        <option value="Haryana" {{ old('state', $courseEnrollment->state) == 'Haryana' ? 'selected' : '' }}>Haryana</option>
+                                        <option value="Himachal Pradesh" {{ old('state', $courseEnrollment->state) == 'Himachal Pradesh' ? 'selected' : '' }}>Himachal Pradesh</option>
+                                        <option value="Jharkhand" {{ old('state', $courseEnrollment->state) == 'Jharkhand' ? 'selected' : '' }}>Jharkhand</option>
+                                        <option value="Karnataka" {{ old('state', $courseEnrollment->state) == 'Karnataka' ? 'selected' : '' }}>Karnataka</option>
+                                        <option value="Kerala" {{ old('state', $courseEnrollment->state) == 'Kerala' ? 'selected' : '' }}>Kerala</option>
+                                        <option value="Madhya Pradesh" {{ old('state', $courseEnrollment->state) == 'Madhya Pradesh' ? 'selected' : '' }}>Madhya Pradesh</option>
+                                        <option value="Maharashtra" {{ old('state', $courseEnrollment->state) == 'Maharashtra' ? 'selected' : '' }}>Maharashtra</option>
+                                        <option value="Manipur" {{ old('state', $courseEnrollment->state) == 'Manipur' ? 'selected' : '' }}>Manipur</option>
+                                        <option value="Meghalaya" {{ old('state', $courseEnrollment->state) == 'Meghalaya' ? 'selected' : '' }}>Meghalaya</option>
+                                        <option value="Mizoram" {{ old('state', $courseEnrollment->state) == 'Mizoram' ? 'selected' : '' }}>Mizoram</option>
+                                        <option value="Nagaland" {{ old('state', $courseEnrollment->state) == 'Nagaland' ? 'selected' : '' }}>Nagaland</option>
+                                        <option value="Odisha" {{ old('state', $courseEnrollment->state) == 'Odisha' ? 'selected' : '' }}>Odisha</option>
+                                        <option value="Punjab" {{ old('state', $courseEnrollment->state) == 'Punjab' ? 'selected' : '' }}>Punjab</option>
+                                        <option value="Rajasthan" {{ old('state', $courseEnrollment->state) == 'Rajasthan' ? 'selected' : '' }}>Rajasthan</option>
+                                        <option value="Sikkim" {{ old('state', $courseEnrollment->state) == 'Sikkim' ? 'selected' : '' }}>Sikkim</option>
+                                        <option value="Tamil Nadu" {{ old('state', $courseEnrollment->state) == 'Tamil Nadu' ? 'selected' : '' }}>Tamil Nadu</option>
+                                        <option value="Telangana" {{ old('state', $courseEnrollment->state) == 'Telangana' ? 'selected' : '' }}>Telangana</option>
+                                        <option value="Tripura" {{ old('state', $courseEnrollment->state) == 'Tripura' ? 'selected' : '' }}>Tripura</option>
+                                        <option value="Uttar Pradesh" {{ old('state', $courseEnrollment->state) == 'Uttar Pradesh' ? 'selected' : '' }}>Uttar Pradesh</option>
+                                        <option value="Uttarakhand" {{ old('state', $courseEnrollment->state) == 'Uttarakhand' ? 'selected' : '' }}>Uttarakhand</option>
+                                        <option value="West Bengal" {{ old('state', $courseEnrollment->state) == 'West Bengal' ? 'selected' : '' }}>West Bengal</option>
+                                        <option value="Andaman and Nicobar Islands" {{ old('state', $courseEnrollment->state) == 'Andaman and Nicobar Islands' ? 'selected' : '' }}>Andaman and Nicobar Islands</option>
+                                        <option value="Chandigarh" {{ old('state', $courseEnrollment->state) == 'Chandigarh' ? 'selected' : '' }}>Chandigarh</option>
+                                        <option value="Dadra and Nagar Haveli and Daman and Diu" {{ old('state', $courseEnrollment->state) == 'Dadra and Nagar Haveli and Daman and Diu' ? 'selected' : '' }}>Dadra and Nagar Haveli and Daman and Diu</option>
+                                        <option value="Delhi" {{ old('state', $courseEnrollment->state) == 'Delhi' ? 'selected' : '' }}>Delhi</option>
+                                        <option value="Jammu and Kashmir" {{ old('state', $courseEnrollment->state) == 'Jammu and Kashmir' ? 'selected' : '' }}>Jammu and Kashmir</option>
+                                        <option value="Ladakh" {{ old('state', $courseEnrollment->state) == 'Ladakh' ? 'selected' : '' }}>Ladakh</option>
+                                        <option value="Lakshadweep" {{ old('state', $courseEnrollment->state) == 'Lakshadweep' ? 'selected' : '' }}>Lakshadweep</option>
+                                        <option value="Puducherry" {{ old('state', $courseEnrollment->state) == 'Puducherry' ? 'selected' : '' }}>Puducherry</option>
+                                    </select>
                                     @error('state')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -361,7 +399,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="amount_paid" class="form-label"><i class="fas fa-dollar-sign me-2"></i>Amount Paid</label>
+                                    <label for="amount_paid" class="form-label"><span class="me-2">&#8377;</span>Amount Paid</label>
                                     <input type="number" class="form-control @error('amount_paid') is-invalid @enderror" id="amount_paid" name="amount_paid" value="{{ old('amount_paid', $courseEnrollment->amount_paid) }}" min="0" step="0.01">
                                     @error('amount_paid')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -453,17 +491,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row g-4 mt-2">
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="progress_percentage" class="form-label"><i class="fas fa-chart-line me-2"></i>Progress (%)</label>
-                                    <input type="number" class="form-control @error('progress_percentage') is-invalid @enderror" id="progress_percentage" name="progress_percentage" value="{{ old('progress_percentage', $courseEnrollment->progress_percentage) }}" min="0" max="100">
-                                    @error('progress_percentage')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <!-- Additional Notes -->

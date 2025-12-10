@@ -282,18 +282,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="detail-row">
-                        <div class="detail-label"><i class="fas fa-chart-line"></i>Progress</div>
-                        <div class="detail-value">
-                            <div class="progress-wrapper">
-                                <div class="progress-bar-custom">
-                                    <div class="progress-bar" style="width: {{ $courseEnrollment->progress_percentage ?? 0 }}%">
-                                        {{ $courseEnrollment->progress_percentage ?? 0 }}%
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -306,7 +295,7 @@
                     <div class="detail-row">
                         <div class="detail-label"><i class="fas fa-money-bill-wave"></i>Amount Paid</div>
                         <div class="detail-value">
-                            <span class="amount-display">${{ number_format($courseEnrollment->amount_paid, 2) }}</span>
+                            <span class="amount-display">&#8377;{{ number_format($courseEnrollment->amount_paid, 2) }}</span>
                         </div>
                     </div>
                     <div class="detail-row">

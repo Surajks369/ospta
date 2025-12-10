@@ -37,7 +37,6 @@ class CourseEnrollment extends Model
         'enrollment_status',
         'start_date',
         'end_date',
-        'progress_percentage',
         'notes'
     ];
 
@@ -46,7 +45,6 @@ class CourseEnrollment extends Model
         'start_date' => 'date',
         'end_date' => 'date',
         'amount_paid' => 'decimal:2',
-        'progress_percentage' => 'integer',
     ];
 
     public function course()
