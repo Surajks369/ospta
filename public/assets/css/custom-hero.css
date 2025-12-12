@@ -1,0 +1,47 @@
+/* Runtime override for hero image and mobile alignment */
+.slider-area, .slider-area2 {
+	background-image: url('../img/hero/h1_hero.jpg') !important;
+	background-size: cover !important;
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+	background-attachment: scroll !important;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767.98px) {
+	.slider-area, .slider-area2 {
+		/* move focal point slightly up so hero content doesn't overlap badly */
+		background-position: center 35% !important;
+		min-height: 360px !important;
+	}
+
+	.slider-area .hero__caption {
+		padding: 18px !important;
+		border-radius: 12px !important;
+		margin: 0 12px !important;
+		background: rgba(255,255,255,0.9) !important;
+	}
+
+	.slider-area .hero__caption h1 {
+		font-size: 28px !important;
+		line-height: 1.1 !important;
+		margin-bottom: 10px !important;
+	}
+
+	.slider-area .hero__caption span {
+		font-size: 16px !important;
+		margin-bottom: 10px !important;
+	}
+
+	.slider-area .hero__caption p {
+		font-size: 14px !important;
+		margin-bottom: 12px !important;
+		color: #333 !important;
+	}
+
+	/* ensure header doesn't overlap hero caption */
+	.header-transparent {
+		position: absolute;
+	}
+}
+
