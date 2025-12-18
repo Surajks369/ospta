@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\PostTooLargeException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -40,27 +42,38 @@ class Handler extends ExceptionHandler
 
         // Render a user-friendly validation-like error when the request entity is too large (HTTP 413).
         // Note: if your front web server (nginx/apache) returns 413 before PHP runs, you must increase
-        // the server upload limits (see README instructions). This handler only catches exceptions
-        // that reach Laravel.
+        // the server upload limits (php.ini `upload_max_filesize` / `post_max_size`, nginx `client_max_body_size`,
+        // Apache `LimitRequestBody`). This handler only catches exceptions that reach Laravel.
         $this->renderable(function (Throwable $e, $request) {
-            // Some exceptions provide getStatusCode(), others are HttpException instances
-            $status = null;
-            if (method_exists($e, 'getStatusCode')) {
+            // Laravel throws Illuminate\Http\Exceptions\PostTooLargeException when PHP post size is exceeded.
+            // Additionally, some Http exceptions implement HttpExceptionInterface and may have a 413 status.
+            $isTooLarge = false;
+
+            if ($e instanceof PostTooLargeException) {
+                $isTooLarge = true;
+            }
+
+            if (!$isTooLarge && $e instanceof HttpExceptionInterface) {
                 try {
-                    $status = $e->getStatusCode();
+                    $isTooLarge = ($e->getStatusCode() === 413);
                 } catch (\Throwable $ex) {
-                    $status = null;
+                    $isTooLarge = false;
                 }
             }
 
-            if ($status === 413) {
-                // If this is an AJAX/JSON request, return JSON; otherwise redirect back with a validation error
-                $message = 'Uploaded file is too large. Maximum allowed size is 2 MB.';
+            if ($isTooLarge) {
+                // Use a validation-like message consistent with the admin UI (we set controller limit to 10MB)
+                $message = 'Uploaded file is too large. Maximum allowed size is 10 MB.';
+
+                // For AJAX/JSON requests, return a validation-style JSON response (422) with errors array
                 if ($request->expectsJson() || $request->isJson()) {
-                    return response()->json(['message' => $message], 413);
+                    return response()->json([
+                        'message' => 'The given data was invalid.',
+                        'errors' => ['image' => [$message]]
+                    ], 422);
                 }
 
-                // Redirect back with validation-like error on the 'image' field
+                // For normal form requests, redirect back with a validation-like error on the 'image' field
                 return redirect()->back()
                     ->withErrors(['image' => $message])
                     ->withInput();
