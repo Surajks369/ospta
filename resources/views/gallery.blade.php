@@ -44,7 +44,30 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-30">
                     <div class="single-gallery-item">
                         <div class="gallery-img">
-                            @if($item->image)
+                            @php
+                                $isVideo = $item->type === 'video' && !empty($item->video_url);
+                                $videoId = null;
+                                if ($isVideo) {
+                                    // extract YouTube video id from common URL formats
+                                    if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:.*v=|v/|embed/)|youtu\.be/)([A-Za-z0-9_-]{11})%i', $item->video_url, $m)) {
+                                        $videoId = $m[1];
+                                    }
+                                }
+                                $thumbnail = null;
+                                if ($videoId) {
+                                    $thumbnail = 'https://img.youtube.com/vi/' . $videoId . '/hqdefault.jpg';
+                                }
+                            @endphp
+
+                            @if($isVideo && $videoId)
+                            <a href="javascript:void(0)" class="video-thumb" data-video-id="{{ $videoId }}">
+                                <div class="single-gallery-image" style="background: url('{{ $thumbnail }}'); background-size: cover; background-position: center; height: 300px; border-radius: 10px; position: relative; overflow: hidden;">
+                                    <div class="gallery-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.35); opacity: 0; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-play-circle" style="color: white; font-size: 48px;"></i>
+                                    </div>
+                                </div>
+                            </a>
+                            @elseif($item->image)
                             <a href="{{ asset('storage/' . $item->image) }}" class="img-pop-up">
                                 <div class="single-gallery-image" style="background: url('{{ asset('storage/' . $item->image) }}'); background-size: cover; background-position: center; height: 300px; border-radius: 10px; position: relative; overflow: hidden;">
                                     <div class="gallery-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(237, 7, 139, 0.7); opacity: 0; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;">
@@ -159,3 +182,47 @@
 </style>
 
 @include('partials.footer')
+
+<!-- Video Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body p-0">
+                <div class="ratio ratio-16x9">
+                    <iframe id="videoFrame" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        // wait for full page load (footer loads scripts like jQuery/Bootstrap)
+        window.addEventListener('load', function() {
+                // click handler for video thumbnails
+                document.querySelectorAll('.video-thumb').forEach(function(el) {
+                        el.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                var videoId = this.getAttribute('data-video-id');
+                                if (!videoId) return;
+                                var src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+                                var iframe = document.getElementById('videoFrame');
+                                iframe.setAttribute('src', src);
+                                // show bootstrap modal (uses jQuery)
+                                if (window.jQuery) {
+                                        $('#videoModal').modal('show');
+                                } else {
+                                        // fallback: open in new tab
+                                        window.open('https://www.youtube.com/watch?v=' + videoId, '_blank');
+                                }
+                        });
+                });
+
+                // clear iframe when modal hides
+                if (window.jQuery) {
+                        $('#videoModal').on('hidden.bs.modal', function () {
+                                document.getElementById('videoFrame').setAttribute('src', '');
+                        });
+                }
+        });
+</script>
