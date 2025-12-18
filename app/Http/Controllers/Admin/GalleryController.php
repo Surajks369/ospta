@@ -25,7 +25,8 @@ class GalleryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // max value is in kilobytes: 10240 KB = 10 MB
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'type' => 'required|in:image,video',
             'video_url' => 'nullable|url',
             'status' => 'boolean',
@@ -59,7 +60,8 @@ class GalleryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // allow up to 10 MB (10240 KB)
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'type' => 'required|in:image,video',
             'video_url' => 'nullable|url',
             'status' => 'boolean',

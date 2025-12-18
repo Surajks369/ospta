@@ -64,7 +64,7 @@
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 2MB</div>
+                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 10MB</div>
                             </div>
 
                             <div class="mb-3" id="videoField" style="display: none;">
@@ -127,7 +127,8 @@
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Optimize images before uploading</li>
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Use descriptive titles for better SEO</li>
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Set order position to control display sequence</li>
-                            <li><i class="fas fa-check text-success me-2"></i>For videos, use YouTube or Vimeo URLs</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>For videos, use YouTube or Vimeo URLs</li>
+                            <li><i class="fas fa-info-circle text-primary me-2"></i>Allowed upload size: <strong>10MB</strong></li>
                         </ul>
                     </div>
                 </div>
