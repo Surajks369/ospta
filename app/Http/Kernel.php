@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin.auth' => \App\Http\Middleware\Admin\AdminAuth::class,
         'admin.guest' => \App\Http\Middleware\Admin\RedirectIfAdminAuthenticated::class,
+        'check.upload.size' => \App\Http\Middleware\CheckUploadSize::class,
     ];
 }

@@ -65,6 +65,18 @@ class Handler extends ExceptionHandler
                 // Use a validation-like message consistent with the admin UI (we set controller limit to 10MB)
                 $message = 'Uploaded file is too large. Maximum allowed size is 10 MB.';
 
+                // Log the occurrence so we can determine whether the request reached Laravel
+                try {
+                    \Illuminate\Support\Facades\Log::warning('Request entity too large reached Laravel', [
+                        'ip' => $request->ip(),
+                        'url' => $request->fullUrl(),
+                        'content_length' => $request->header('content-length'),
+                        'exception' => get_class($e),
+                    ]);
+                } catch (\Throwable $logEx) {
+                    // ignore logging failures
+                }
+
                 // For AJAX/JSON requests, return a validation-style JSON response (422) with errors array
                 if ($request->expectsJson() || $request->isJson()) {
                     return response()->json([

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
+    public function __construct()
+    {
+        // Apply upload size check to store and update actions so oversized uploads are handled gracefully
+        $this->middleware('check.upload.size')->only(['store', 'update']);
+    }
     public function index()
     {
         $galleries = Gallery::orderBy('sort_order')->orderBy('created_at', 'desc')->paginate(10);
