@@ -165,4 +165,54 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleFields(); // Initialize on page load
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('galleryForm');
+    const imageInput = document.getElementById('image');
+    const maxMb = parseInt('{{ config('gallery.max_upload_mb', 10) }}', 10);
+    const maxBytes = maxMb * 1024 * 1024;
+
+    function removeSizeError() {
+        if (!imageInput) return;
+        imageInput.classList.remove('is-invalid');
+        const existing = imageInput.parentNode.querySelector('.invalid-feedback.upload-size-error');
+        if (existing) existing.remove();
+    }
+
+    if (imageInput) {
+        imageInput.addEventListener('change', function() {
+            removeSizeError();
+            if (this.files && this.files[0]) {
+                if (this.files[0].size > maxBytes) {
+                    const msg = 'Uploaded file is too large. Maximum allowed size is ' + maxMb + ' MB.';
+                    this.classList.add('is-invalid');
+                    const div = document.createElement('div');
+                    div.className = 'invalid-feedback upload-size-error';
+                    div.innerText = msg;
+                    this.parentNode.appendChild(div);
+                }
+            }
+        });
+    }
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (imageInput && imageInput.files && imageInput.files.length > 0) {
+                const file = imageInput.files[0];
+                if (file.size > maxBytes) {
+                    e.preventDefault();
+                    removeSizeError();
+                    imageInput.classList.add('is-invalid');
+                    const div = document.createElement('div');
+                    div.className = 'invalid-feedback upload-size-error';
+                    div.innerText = 'Uploaded file is too large. Maximum allowed size is ' + maxMb + ' MB.';
+                    imageInput.parentNode.appendChild(div);
+                    imageInput.focus();
+                    return false;
+                }
+            }
+        });
+    }
+});
+</script>
 @endsection

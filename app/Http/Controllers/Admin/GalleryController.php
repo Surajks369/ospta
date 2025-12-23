@@ -30,10 +30,11 @@ class GalleryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            // max value is in kilobytes: 10240 KB = 10 MB
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            // image is required only when type is image
+            'image' => 'required_if:type,image|image|mimes:jpeg,png,jpg,gif|max:10240',
             'type' => 'required|in:image,video',
-            'video_url' => 'nullable|url',
+            // video_url is required only when type is video
+            'video_url' => 'required_if:type,video|nullable|url',
             'status' => 'boolean',
             'sort_order' => 'integer'
         ]);
@@ -42,6 +43,9 @@ class GalleryController extends Controller
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('gallery', 'public');
+        } else {
+            // explicitly set image to null for video items so DB nullable column receives NULL
+            $data['image'] = null;
         }
 
         Gallery::create($data);
@@ -68,12 +72,30 @@ class GalleryController extends Controller
             // allow up to 10 MB (10240 KB)
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'type' => 'required|in:image,video',
-            'video_url' => 'nullable|url',
+            // video_url required when type=video
+            'video_url' => 'required_if:type,video|nullable|url',
             'status' => 'boolean',
             'sort_order' => 'integer'
         ]);
 
+        // If the updated type is 'image', ensure there is an image either already stored or uploaded now
+        if ($request->input('type') === 'image') {
+            $hasExisting = !empty($gallery->image);
+            $hasUploaded = $request->hasFile('image');
+            if (!$hasExisting && !$hasUploaded) {
+                return redirect()->back()
+                    ->withErrors(['image' => 'Image is required when type is image.'])
+                    ->withInput();
+            }
+        }
+
         $data = $request->except(['image']);
+
+        // If type is video and admin did not upload a new image, remove existing image (if any)
+        if ($request->input('type') === 'video' && !$request->hasFile('image') && $gallery->image) {
+            Storage::disk('public')->delete($gallery->image);
+            $data['image'] = null;
+        }
 
         if ($request->hasFile('image')) {
             if ($gallery->image) {
