@@ -30,8 +30,8 @@ class GalleryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            // image is required only when type is image
-            'image' => 'required_if:type,image|image|mimes:jpeg,png,jpg,gif|max:10240',
+            // image is required only when type is image - max 50 MB (51200 KB)
+            'image' => 'required_if:type,image|image|mimes:jpeg,png,jpg,gif|max:51200',
             'type' => 'required|in:image,video',
             // video_url is required only when type is video
             'video_url' => 'required_if:type,video|nullable|url',
@@ -69,8 +69,8 @@ class GalleryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            // allow up to 10 MB (10240 KB)
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            // allow up to 50 MB (51200 KB)
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:51200',
             'type' => 'required|in:image,video',
             // video_url required when type=video
             'video_url' => 'required_if:type,video|nullable|url',

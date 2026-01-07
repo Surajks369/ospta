@@ -62,9 +62,11 @@
                                 <input type="file" class="form-control @error('image') is-invalid @enderror" 
                                        id="image" name="image" accept="image/*">
                                 @error('image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="alert alert-danger alert-sm mt-2 mb-0" style="padding: 8px 12px; font-size: 0.875rem;">{{ $message }}</div>
                                 @enderror
-                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 10MB</div>
+                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: <strong>50MB</strong></div>
+                                <small id="fileInfo" class="form-text text-muted d-block mt-2">No file selected</small>
+                                <div id="fileSizeError" class="alert alert-danger alert-sm mt-2 mb-0" style="display: none; padding: 8px 12px; font-size: 0.875rem;"></div>
                                 @if($gallery->image)
                                     <img src="{{ asset('storage/' . $gallery->image) }}" alt="Gallery Image" class="img-thumbnail mt-2" width="150">
                                 @endif
@@ -129,7 +131,7 @@
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Use descriptive titles for better SEO</li>
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Set order position to control display sequence</li>
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i>For videos, use YouTube or Vimeo URLs</li>
-                            <li><i class="fas fa-info-circle text-primary me-2"></i>Allowed upload size: <strong>10MB</strong></li>
+                            <li><i class="fas fa-info-circle text-primary me-2"></i>Allowed upload size: <strong>50MB</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -169,28 +171,53 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('galleryForm');
     const imageInput = document.getElementById('image');
-    const maxMb = parseInt('{{ config('gallery.max_upload_mb', 10) }}', 10);
+    const fileInfo = document.getElementById('fileInfo');
+    const fileSizeError = document.getElementById('fileSizeError');
+    const maxMb = parseInt('{{ config('gallery.max_upload_mb', 50) }}', 10);
     const maxBytes = maxMb * 1024 * 1024;
 
-    function removeSizeError() {
-        if (!imageInput) return;
-        imageInput.classList.remove('is-invalid');
-        const existing = imageInput.parentNode.querySelector('.invalid-feedback.upload-size-error');
-        if (existing) existing.remove();
+    // Format bytes to human readable
+    function formatBytes(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    function clearError() {
+        if (imageInput) imageInput.classList.remove('is-invalid');
+        fileSizeError.style.display = 'none';
+        fileSizeError.textContent = '';
+    }
+
+    function showError(message) {
+        imageInput.classList.add('is-invalid');
+        fileSizeError.textContent = message;
+        fileSizeError.style.display = 'block';
     }
 
     if (imageInput) {
         imageInput.addEventListener('change', function() {
-            removeSizeError();
+            clearError();
+            
             if (this.files && this.files[0]) {
-                if (this.files[0].size > maxBytes) {
-                    const msg = 'Uploaded file is too large. Maximum allowed size is ' + maxMb + ' MB.';
-                    this.classList.add('is-invalid');
-                    const div = document.createElement('div');
-                    div.className = 'invalid-feedback upload-size-error';
-                    div.innerText = msg;
-                    this.parentNode.appendChild(div);
+                const file = this.files[0];
+                const fileSize = formatBytes(file.size);
+                
+                // Update file info display
+                fileInfo.textContent = 'File: ' + file.name + ' (' + fileSize + ')';
+                
+                // Check file size
+                if (file.size > maxBytes) {
+                    const msg = '⚠️ File size exceeds limit! File is ' + fileSize + ', maximum allowed is ' + maxMb + ' MB.';
+                    showError(msg);
+                    return false;
+                } else {
+                    fileInfo.innerHTML = '<i class="fas fa-check text-success"></i> File: ' + file.name + ' (' + fileSize + ')';
                 }
+            } else {
+                fileInfo.textContent = 'No file selected';
             }
         });
     }
@@ -201,12 +228,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const file = imageInput.files[0];
                 if (file.size > maxBytes) {
                     e.preventDefault();
-                    removeSizeError();
-                    imageInput.classList.add('is-invalid');
-                    const div = document.createElement('div');
-                    div.className = 'invalid-feedback upload-size-error';
-                    div.innerText = 'Uploaded file is too large. Maximum allowed size is ' + maxMb + ' MB.';
-                    imageInput.parentNode.appendChild(div);
+                    const fileSize = formatBytes(file.size);
+                    const msg = '⚠️ File size exceeds limit! File is ' + fileSize + ', maximum allowed is ' + maxMb + ' MB.';
+                    showError(msg);
                     imageInput.focus();
                     return false;
                 }
