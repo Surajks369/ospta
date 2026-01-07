@@ -1,0 +1,128 @@
+# CRITICAL: Run These Exact Commands on Your AWS Server
+
+## Problem: Form hangs when uploading files > 2MB
+
+The issue was the JavaScript was preventing form submission. NOW FIXED - JavaScript only shows warning, doesn't block.
+
+---
+
+## Step 1: SSH into Your AWS Server
+
+```bash
+ssh -i your-key.pem ec2-user@your-server-ip
+```
+
+---
+
+## Step 2: Update PHP to Allow 50MB
+
+```bash
+# Find php.ini
+php -r "echo php_ini_loaded_file();"
+
+# Edit it (usually one of these):
+sudo nano /etc/php.ini
+# OR
+sudo nano /etc/php/8.1/fpm/php.ini
+# OR
+sudo nano /etc/php/8.0/fpm/php.ini
+```
+
+**Update these 4 values to 50MB:**
+```ini
+upload_max_filesize = 50M
+post_max_size = 50M
+memory_limit = 256M
+max_execution_time = 300
+```
+
+**Save: Ctrl+X → Y → Enter**
+
+```bash
+# Restart PHP
+sudo systemctl restart php-fpm
+# OR
+sudo systemctl restart php8.1-fpm
+```
+
+---
+
+## Step 3: Update Nginx to Allow 50MB
+
+```bash
+# Edit main nginx config
+sudo nano /etc/nginx/nginx.conf
+```
+
+Find the `http {` block and add:
+```nginx
+http {
+    client_max_body_size 50M;
+    # ... rest of config
+}
+```
+
+**Save: Ctrl+X → Y → Enter**
+
+```bash
+# Test and reload
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+---
+
+## Step 4: Verify Changes
+
+```bash
+# Check PHP
+php -i | grep -E "upload_max_filesize|post_max_size"
+
+# Check Nginx status
+sudo systemctl status nginx
+
+# Check error logs
+sudo tail -20 /var/log/nginx/error.log
+```
+
+---
+
+## Step 5: Pull Latest Code Changes
+
+```bash
+cd /var/www/your-app
+git pull origin main
+# OR
+cd /home/ec2-user/your-app
+git pull origin main
+```
+
+---
+
+## Testing
+
+Go to: `https://opsta.in/admin/galleries/create`
+
+Try uploading:
+- ✅ **File < 50MB:** Should upload successfully
+- ✅ **File > 50MB:** Should show error message from server (after form submits)
+
+---
+
+## What Changed in Code
+
+1. **config/gallery.php** → max_upload_mb = 50
+2. **GalleryController.php** → validation max:51200 (51200 KB = 50 MB)
+3. **create.blade.php** → JavaScript only warns, doesn't block submission
+4. **edit.blade.php** → JavaScript only warns, doesn't block submission
+
+The KEY FIX: JavaScript no longer prevents form submission for large files. It just shows a warning. The server (Nginx + PHP + Laravel) handles the actual validation.
+
+---
+
+## If Still Not Working
+
+1. Check if your AWS instance uses a load balancer (ALB, NLB) - they might have their own size limits
+2. Check security groups allow all traffic
+3. Run: `curl -I https://opsta.in/admin/galleries/create` to verify site is accessible
+4. Check Laravel logs: `tail -50 /var/www/your-app/storage/logs/laravel.log`

@@ -66,7 +66,7 @@
                                 @enderror
                                 <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: <strong>50MB</strong></div>
                                 <small id="fileInfo" class="form-text text-muted d-block mt-2">No file selected</small>
-                                <div id="fileSizeError" class="alert alert-danger alert-sm mt-2 mb-0" style="display: none; padding: 8px 12px; font-size: 0.875rem;"></div>
+                                <div id="fileSizeWarning" class="alert alert-warning alert-sm mt-2 mb-0" style="display: none; padding: 8px 12px; font-size: 0.875rem;"></div>
                                 @if($gallery->image)
                                     <img src="{{ asset('storage/' . $gallery->image) }}" alt="Gallery Image" class="img-thumbnail mt-2" width="150">
                                 @endif
@@ -199,41 +199,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (imageInput) {
         imageInput.addEventListener('change', function() {
-            clearError();
-            
             if (this.files && this.files[0]) {
                 const file = this.files[0];
                 const fileSize = formatBytes(file.size);
                 
                 // Update file info display
-                fileInfo.textContent = 'File: ' + file.name + ' (' + fileSize + ')';
+                fileInfo.innerHTML = '<i class="fas fa-file-image text-info"></i> ' + file.name + ' (' + fileSize + ')';
                 
-                // Check file size
+                // Show warning if file is large (but still allow submission)
                 if (file.size > maxBytes) {
-                    const msg = '⚠️ File size exceeds limit! File is ' + fileSize + ', maximum allowed is ' + maxMb + ' MB.';
-                    showError(msg);
-                    return false;
+                    fileSizeError.innerHTML = '⚠️ Warning: File (' + fileSize + ') exceeds recommended limit (' + maxMb + ' MB). Server will validate on upload.';
+                    fileSizeError.style.display = 'block';
                 } else {
-                    fileInfo.innerHTML = '<i class="fas fa-check text-success"></i> File: ' + file.name + ' (' + fileSize + ')';
+                    fileSizeError.style.display = 'none';
                 }
             } else {
                 fileInfo.textContent = 'No file selected';
-            }
-        });
-    }
-
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            if (imageInput && imageInput.files && imageInput.files.length > 0) {
-                const file = imageInput.files[0];
-                if (file.size > maxBytes) {
-                    e.preventDefault();
-                    const fileSize = formatBytes(file.size);
-                    const msg = '⚠️ File size exceeds limit! File is ' + fileSize + ', maximum allowed is ' + maxMb + ' MB.';
-                    showError(msg);
-                    imageInput.focus();
-                    return false;
-                }
+                fileSizeError.style.display = 'none';
             }
         });
     }

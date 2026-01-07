@@ -66,7 +66,7 @@
                                 @enderror
                                 <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: <strong>50MB</strong></div>
                                 <small id="fileInfo" class="form-text text-muted d-block mt-2">No file selected</small>
-                                <div id="fileSizeError" class="alert alert-danger alert-sm mt-2 mb-0" style="display: none; padding: 8px 12px; font-size: 0.875rem;"></div>
+                                <div id="fileSizeWarning" class="alert alert-warning alert-sm mt-2 mb-0" style="display: none; padding: 8px 12px; font-size: 0.875rem;"></div>
                             </div>
 
                             <div class="mb-3" id="videoField" style="display: none;">
@@ -169,10 +169,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('galleryForm');
     const imageInput = document.getElementById('image');
     const fileInfo = document.getElementById('fileInfo');
-    const fileSizeError = document.getElementById('fileSizeError');
+    const fileSizeWarning = document.getElementById('fileSizeWarning');
     const maxMb = parseInt('{{ config('gallery.max_upload_mb', 50) }}', 10);
     const maxBytes = maxMb * 1024 * 1024;
 
@@ -185,55 +184,25 @@ document.addEventListener('DOMContentLoaded', function() {
         return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
     }
 
-    function clearError() {
-        if (imageInput) imageInput.classList.remove('is-invalid');
-        fileSizeError.style.display = 'none';
-        fileSizeError.textContent = '';
-    }
-
-    function showError(message) {
-        imageInput.classList.add('is-invalid');
-        fileSizeError.textContent = message;
-        fileSizeError.style.display = 'block';
-    }
-
     if (imageInput) {
         imageInput.addEventListener('change', function() {
-            clearError();
-            
             if (this.files && this.files[0]) {
                 const file = this.files[0];
                 const fileSize = formatBytes(file.size);
                 
                 // Update file info display
-                fileInfo.textContent = 'File: ' + file.name + ' (' + fileSize + ')';
+                fileInfo.innerHTML = '<i class="fas fa-file-image text-info"></i> ' + file.name + ' (' + fileSize + ')';
                 
-                // Check file size
+                // Show warning if file is large (but still allow submission)
                 if (file.size > maxBytes) {
-                    const msg = '⚠️ File size exceeds limit! File is ' + fileSize + ', maximum allowed is ' + maxMb + ' MB.';
-                    showError(msg);
-                    return false;
+                    fileSizeWarning.innerHTML = '⚠️ Warning: File (' + fileSize + ') exceeds recommended limit (' + maxMb + ' MB). Server will validate on upload.';
+                    fileSizeWarning.style.display = 'block';
                 } else {
-                    fileInfo.innerHTML = '<i class="fas fa-check text-success"></i> File: ' + file.name + ' (' + fileSize + ')';
+                    fileSizeWarning.style.display = 'none';
                 }
             } else {
                 fileInfo.textContent = 'No file selected';
-            }
-        });
-    }
-
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            if (imageInput && imageInput.files && imageInput.files.length > 0) {
-                const file = imageInput.files[0];
-                if (file.size > maxBytes) {
-                    e.preventDefault();
-                    const fileSize = formatBytes(file.size);
-                    const msg = '⚠️ File size exceeds limit! File is ' + fileSize + ', maximum allowed is ' + maxMb + ' MB.';
-                    showError(msg);
-                    imageInput.focus();
-                    return false;
-                }
+                fileSizeWarning.style.display = 'none';
             }
         });
     }
