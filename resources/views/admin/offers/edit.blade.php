@@ -49,7 +49,7 @@
                             <div class="form-floating mb-3">
                                 <select class="form-select @error('discount_type') is-invalid @enderror" id="discount_type" name="discount_type" required aria-label="Discount Type">
                                     <option value="">Select Type</option>
-                                    <option value="percent" {{ old('discount_type', $offer->discount_type) == 'percent' ? 'selected' : '' }}>Percent</option>
+                                    <option value="percentage" {{ old('discount_type', $offer->discount_type) == 'percentage' ? 'selected' : '' }}>Percentage</option>
                                     <option value="fixed" {{ old('discount_type', $offer->discount_type) == 'fixed' ? 'selected' : '' }}>Fixed Amount</option>
                                 </select>
                                 <label for="discount_type">Discount Type <span class="text-danger">*</span></label>
