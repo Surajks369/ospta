@@ -25,10 +25,9 @@ class DemoBookingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_registration_id' => 'nullable|exists:user_registrations,id',
-            'name' => 'required_without:user_registration_id|string|max:255',
-            'email' => 'required_without:user_registration_id|email',
-            'phone' => 'required_without:user_registration_id|string|max:20',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:20',
             'course_id' => 'nullable|exists:courses,id',
             'school_name' => 'nullable|string|max:255',
             'school_address' => 'nullable|string',
@@ -43,17 +42,7 @@ class DemoBookingController extends Controller
             'admin_notes' => 'nullable|string'
         ]);
 
-        // If user_registration_id is provided, get user details
-        if ($request->user_registration_id) {
-            $user = \App\Models\UserRegistration::find($request->user_registration_id);
-            $data = $request->all();
-            $data['name'] = $user->name;
-            $data['email'] = $user->email;
-            $data['phone'] = $user->phone;
-            DemoBooking::create($data);
-        } else {
-            DemoBooking::create($request->all());
-        }
+        DemoBooking::create($request->all());
 
         return redirect()->route('admin.demo-bookings.index')
             ->with('success', 'Demo booking created successfully.');
@@ -75,10 +64,9 @@ class DemoBookingController extends Controller
     public function update(Request $request, DemoBooking $demoBooking)
     {
         $request->validate([
-            'user_registration_id' => 'nullable|exists:user_registrations,id',
-            'name' => 'required_without:user_registration_id|string|max:255',
-            'email' => 'required_without:user_registration_id|email',
-            'phone' => 'required_without:user_registration_id|string|max:20',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:20',
             'course_id' => 'nullable|exists:courses,id',
             'school_name' => 'nullable|string|max:255',
             'school_address' => 'nullable|string',
@@ -93,17 +81,7 @@ class DemoBookingController extends Controller
             'admin_notes' => 'nullable|string'
         ]);
 
-        // If user_registration_id is provided, get user details
-        if ($request->user_registration_id) {
-            $user = \App\Models\UserRegistration::find($request->user_registration_id);
-            $data = $request->all();
-            $data['name'] = $user->name;
-            $data['email'] = $user->email;
-            $data['phone'] = $user->phone;
-            $demoBooking->update($data);
-        } else {
-            $demoBooking->update($request->all());
-        }
+        $demoBooking->update($request->all());
 
         return redirect()->route('admin.demo-bookings.index')
             ->with('success', 'Demo booking updated successfully.');

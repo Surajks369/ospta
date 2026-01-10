@@ -21,21 +21,7 @@
                     @csrf
                     @method('PUT')
                     <div class="row g-4">
-                        <div class="col-md-8">
-                            <div class="form-floating mb-3">
-                                <select class="form-select @error('user_registration_id') is-invalid @enderror" id="user_registration_id" name="user_registration_id" aria-label="Select User">
-                                    <option value="">Select User</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}" {{ old('user_registration_id', $demoBooking->user_registration_id) == $user->id ? 'selected' : '' }}>{{ $user->name }} ({{ $user->email }})</option>
-                                    @endforeach
-                                </select>
-                                <label for="user_registration_id">User</label>
-                                @error('user_registration_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <div class="form-floating mb-3">
                                 <select class="form-select @error('course_id') is-invalid @enderror" id="course_id" name="course_id" aria-label="Select Course">
                                     <option value="">Select Course</option>

@@ -180,8 +180,8 @@ class HomeController extends Controller
             $rules['contact_designation'] = 'nullable|string|max:255';
             $rules['contact_phone'] = 'required|string|max:20';
             $rules['contact_email'] = 'required|email';
-            $rules['preferred_date'] = 'nullable|date|after:today';
-            $rules['preferred_time'] = 'nullable|string';
+            $rules['preferred_date'] = 'required|date|after:today';
+            $rules['preferred_time'] = 'required|string';
         } elseif ($request->registration_type === 'enrollment') {
             // For enrollment we will save all submitted fields into course_enrollments directly
             $rules['email'] = 'required|email';

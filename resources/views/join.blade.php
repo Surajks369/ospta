@@ -160,14 +160,14 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Preferred Date</label>
-                                        <input type="date" name="preferred_date" class="form-control" value="{{ old('preferred_date') }}"
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Preferred Date <span style="color: #ED078B;">*</span></label>
+                                        <input type="date" name="preferred_date" class="form-control" value="{{ old('preferred_date') }}" required
                                                style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem;"
                                                onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Preferred Time</label>
-                                        <select name="preferred_time" class="form-control"
+                                        <label style="display: block; color: #423F8D; font-weight: 600; margin-bottom: 8px;">Preferred Time <span style="color: #ED078B;">*</span></label>
+                                        <select name="preferred_time" class="form-control" required
                                                 style="border: 2px solid #e9ecef; border-radius: 10px; padding: 12px 15px; font-size: 1rem; background: white;"
                                                 onfocus="this.style.borderColor='#ED078B'" onblur="this.style.borderColor='#e9ecef'">
                                             <option value="">Select time</option>
