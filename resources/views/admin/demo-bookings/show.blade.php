@@ -20,12 +20,12 @@
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <h5>User</h5>
-                        <p><strong>{{ $demoBooking->user ? $demoBooking->user->name : 'N/A' }}</strong><br>
-                        <span class="text-muted">{{ $demoBooking->user ? $demoBooking->user->email : 'N/A' }}</span></p>
+                        <p><strong>{{ $demoBooking->userRegistration ? $demoBooking->userRegistration->name : 'N/A' }}</strong><br>
+                        <span class="text-muted">{{ $demoBooking->userRegistration ? $demoBooking->userRegistration->email : 'N/A' }}</span></p>
                         <h5>Course</h5>
                         <p><strong>{{ $demoBooking->course ? $demoBooking->course->title : 'N/A' }}</strong></p>
                         <h5>Preferred Date</h5>
-                        <p>{{ $demoBooking->preferred_date ?? 'N/A' }}</p>
+                        <p>{{ $demoBooking->preferred_date?->format('M d, Y') ?? 'N/A' }}</p>
                         <h5>Preferred Time</h5>
                         <p>{{ $demoBooking->preferred_time ?? 'N/A' }}</p>
                     </div>
@@ -40,14 +40,54 @@
                         <span class="badge bg-{{ $demoBooking->status == 'confirmed' ? 'info' : ($demoBooking->status == 'completed' ? 'success' : ($demoBooking->status == 'cancelled' ? 'danger' : 'warning')) }}">
                             {{ ucfirst($demoBooking->status) }}
                         </span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5>School Name</h5>
+                        <p>{{ $demoBooking->school_name ?? 'N/A' }}</p>
+                        <h5>School Address</h5>
+                        <p>{{ $demoBooking->school_address ?? 'N/A' }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Contact Person</h5>
+                        <p>{{ $demoBooking->contact_person ?? 'N/A' }}</p>
+                        <h5>Contact Designation</h5>
+                        <p>{{ $demoBooking->contact_designation ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5>Contact Phone</h5>
+                        <p>{{ $demoBooking->contact_phone ?? 'N/A' }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Contact Email</h5>
+                        <p>{{ $demoBooking->contact_email ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-4">
+                    <div class="col-md-12">
                         <h5>Message</h5>
                         <p>{{ $demoBooking->message ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-12">
                         <h5>Admin Notes</h5>
                         <p>{{ $demoBooking->admin_notes ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <h5>Created At</h5>
-                        <p>{{ $demoBooking->created_at->format('M d, Y') }}</p>
+                        <p>{{ $demoBooking->created_at->format('M d, Y H:i') }}</p>
+                    </div>
+                    <div class="col-md-6">
                         <h5>Updated At</h5>
-                        <p>{{ $demoBooking->updated_at->format('M d, Y') }}</p>
+                        <p>{{ $demoBooking->updated_at->format('M d, Y H:i') }}</p>
                     </div>
                 </div>
             </div>

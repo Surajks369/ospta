@@ -31,7 +31,6 @@ class DemoBooking extends Model
 
     protected $casts = [
         'preferred_date' => 'date',
-        'preferred_time' => 'datetime:H:i',
     ];
 
     public function course()

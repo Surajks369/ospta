@@ -84,6 +84,68 @@
                     <div class="row g-4">
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="school_name" class="form-label">School Name</label>
+                                <input type="text" class="form-control @error('school_name') is-invalid @enderror" id="school_name" name="school_name" value="{{ old('school_name', $demoBooking->school_name) }}">
+                                @error('school_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="school_address" class="form-label">School Address</label>
+                                <textarea class="form-control @error('school_address') is-invalid @enderror" id="school_address" name="school_address" rows="2">{{ old('school_address', $demoBooking->school_address) }}</textarea>
+                                @error('school_address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="contact_person" class="form-label">Contact Person</label>
+                                <input type="text" class="form-control @error('contact_person') is-invalid @enderror" id="contact_person" name="contact_person" value="{{ old('contact_person', $demoBooking->contact_person) }}">
+                                @error('contact_person')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="contact_designation" class="form-label">Contact Designation</label>
+                                <input type="text" class="form-control @error('contact_designation') is-invalid @enderror" id="contact_designation" name="contact_designation" value="{{ old('contact_designation', $demoBooking->contact_designation) }}">
+                                @error('contact_designation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="contact_phone" class="form-label">Contact Phone</label>
+                                <input type="text" class="form-control @error('contact_phone') is-invalid @enderror" id="contact_phone" name="contact_phone" value="{{ old('contact_phone', $demoBooking->contact_phone) }}">
+                                @error('contact_phone')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="contact_email" class="form-label">Contact Email</label>
+                                <input type="email" class="form-control @error('contact_email') is-invalid @enderror" id="contact_email" name="contact_email" value="{{ old('contact_email', $demoBooking->contact_email) }}">
+                                @error('contact_email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="preferred_date" class="form-label">Preferred Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('preferred_date') is-invalid @enderror" id="preferred_date" name="preferred_date" value="{{ old('preferred_date', $demoBooking->preferred_date?->format('Y-m-d')) }}" required>
                                 @error('preferred_date')
