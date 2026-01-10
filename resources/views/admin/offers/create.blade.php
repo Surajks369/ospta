@@ -121,9 +121,11 @@
                             <div class="mb-3">
                                 <label for="image" class="form-label">Image</label>
                                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
-                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 2MB</div>
+                                <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: <strong>50MB</strong></div>
+                                <small id="fileInfo" class="form-text text-muted d-block mt-2">No file selected</small>
+                                <div id="fileSizeWarning" class="alert alert-warning alert-sm mt-2 mb-0" style="display: none; padding: 8px 12px; font-size: 0.875rem;"></div>
                                 @error('image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="alert alert-danger alert-sm mt-2 mb-0" style="padding: 8px 12px; font-size: 0.875rem;">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -147,5 +149,48 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const imageInput = document.getElementById('image');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileSizeWarning = document.getElementById('fileSizeWarning');
+    const maxMb = 50;
+    const maxBytes = maxMb * 1024 * 1024;
+
+    // Format bytes to human readable
+    function formatBytes(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    if (imageInput) {
+        imageInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const fileSize = formatBytes(file.size);
+                
+                // Update file info display
+                fileInfo.innerHTML = '<i class="fas fa-file-image text-info"></i> ' + file.name + ' (' + fileSize + ')';
+                
+                // Show warning if file is large (but still allow submission)
+                if (file.size > maxBytes) {
+                    fileSizeWarning.innerHTML = '⚠️ Warning: File (' + fileSize + ') exceeds recommended limit (' + maxMb + ' MB). Server will validate on upload.';
+                    fileSizeWarning.style.display = 'block';
+                } else {
+                    fileSizeWarning.style.display = 'none';
+                }
+            } else {
+                fileInfo.textContent = 'No file selected';
+                fileSizeWarning.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
+
 @endsection
 

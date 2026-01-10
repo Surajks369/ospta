@@ -33,7 +33,7 @@ class OfferController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'usage_limit' => 'nullable|integer|min:1',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:51200',
             'status' => 'boolean'
         ]);
 
@@ -73,7 +73,7 @@ class OfferController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'usage_limit' => 'nullable|integer|min:1',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:51200',
             'status' => 'boolean'
         ]);
 
