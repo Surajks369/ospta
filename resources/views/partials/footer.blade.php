@@ -25,7 +25,7 @@
                                 <!--<a href="#"><i class="fab fa-twitter"></i></a>
                                 <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>-->
                                 <a href="https://wa.me/9072277460"><i class="fab fa-whatsapp"></i></a>
-                                <a href="https://www.instagram.com/opsta"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.instagram.com/opsta__"><i class="fab fa-instagram"></i></a>
                                 <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
                                 
                                 <!--<a href="#"><i class="fab fa-linkedin-in"></i></a>-->
